@@ -5,6 +5,7 @@
 angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives']).
   config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.when('/home', {templateUrl: 'partial/home', controller: HomeController});
+    $routeProvider.when('/confirm', {templateUrl: 'partial/confirm', controller: ConfirmController});
     $routeProvider.otherwise({redirectTo: '/home'});
     $locationProvider.html5Mode(true);
   }]);
