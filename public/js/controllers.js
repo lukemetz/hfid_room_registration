@@ -15,6 +15,13 @@ function AppCtrl($scope, $http) {
 function MyCtrl1() {}
 MyCtrl1.$inject = [];
 
+var HomeController = function($scope) {
+  $scope.room = "any";
+  $scope.room = "an33y";
+  console.log("in home")
+
+}
+
 
 function MyCtrl2() {
 }

@@ -1,0 +1,10 @@
+.div
+  h1 Homepage
+  input(ng-model="room") 
+  span(ng-switch="room")
+    span(ng-switch-when="any")
+      a(href="viewA") SubmitA
+    span(ng-switch-default)
+      a(href="viewB") SubmitB
+
+
