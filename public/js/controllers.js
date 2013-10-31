@@ -22,6 +22,13 @@ var HomeController = function($scope) {
 
 }
 
+var CalController = function($scope) {
+  $scope.room = "";
+  $scope.weekly = false;
+  console.log("in calendar")
+
+}
+
 
 function MyCtrl2() {
 }
