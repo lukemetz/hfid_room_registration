@@ -1,24 +1,10 @@
 extends layout
 
 block body
-  .navbar.navbar-fixed-top
-    .navbar-inner
-      .container-fluid
-        a.brand(href='#') AngularExpressBootstrapSeed
-        ul.nav
-          li
-            a(href='view1') View1
-          li
-            a(href='view2') View2
   .container-fluid
     div(ng-controller='AppCtrl')
-      .hero-unit  
-        h1 Hello {{name}}
       div(ng-view)
     hr  
-    div
-      | Angular seed app: v
-      span(app-version)
 
   script(src='js/lib/angular/angular.js')
   script(src='js/app.js')
