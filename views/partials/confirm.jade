@@ -1,19 +1,34 @@
-h1 Confirmation
-form
-    fieldset
-        label Event Name:
-        input(type='text', placeholder='AC 103')
+.container
+    .row 
+        .large-4.columns
+            h1 Confirmation
+            form
+                fieldset
+                    label Event Name:
+                    input(type='text', placeholder='AC 103')
+                
+            
+                    label Customer/Organization:
+                    input(type='text', placeholder='Potatoe')
+
+            
+                    label Email:
+                    input(type='text', placeholder='yourName@email.com')
+
+
+                    label.checkbox
+                        input(type='checkbox')
+                        |Public
+
+
         
-    fieldset
-        label Customer/Organization:
-        input(type='text', placeholder='Potatoe')
+        .panel
+            h3 You have reserved:
+            h4 Room:
+            h4 On:
 
-    fieldset
-        label.checkbox
-            input(type='checkbox')
-            |Public
+            h4 At:
 
-    fieldset
-        label Email:
-        input(type='text', placeholder='yourName@email.com')
+            button.btn.btn-primary.btn-primary(type='button') Back
+            button.btn.btn-primary.btn-primary(type='button') Confirm
 
