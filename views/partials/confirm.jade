@@ -1,0 +1,35 @@
+.container
+    .row 
+        h1 Confirmation
+    .row    
+        .large-4.columns
+            form
+                fieldset
+                    label Event Name:
+                    input(type='text', placeholder='AC 103')
+                
+            
+                    label Customer/Organization:
+                    input(type='text', placeholder='Potatoe')
+
+            
+                    label Email:
+                    input(type='text', placeholder='yourName@email.com')
+
+
+                    label.checkbox
+                        input(type='checkbox')
+                        |Public
+
+
+        
+        .large-8.columns.panel
+            h3 You have reserved:
+            h4 Room:
+            h4 On:
+
+            h4 At:
+
+            button.btn.btn-primary.btn-primary(type='button') Back
+            button.btn.btn-primary.btn-primary(type='button') Confirm
+

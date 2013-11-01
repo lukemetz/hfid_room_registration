@@ -33,3 +33,6 @@ var CalController = function($scope) {
 function MyCtrl2() {
 }
 MyCtrl2.$inject = [];
+
+var ConfirmController = function($scope) {
+}

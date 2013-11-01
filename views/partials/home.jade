@@ -1,12 +1,19 @@
-.div 
-  h1 Hello {{name}}
-  .panel.well 
-    h3 Make a Room Reservation
-    input(ng-model="room") 
-    span(ng-switch="room")
-      span(ng-switch-when="any")
-        a(href="viewA") SubmitA
-      span(ng-switch-default)
-        a(href="viewB") SubmitB
+.container
+  .row
+    .columns.small-8
+      h1 Hello {{name}}
+      .panel
+        h3 Make a Room Reservation
+        input(ng-model="room") 
+        span(ng-switch="room")
+          span(ng-switch-when="any")
+            a(href="viewA") SubmitA
+          span(ng-switch-default)
+            a(href="viewB") SubmitB
+      .panel
+        h3 Your Current Events
+    .columns.small-4
+      .panel
+        h3 Upcoming Events
 
 
