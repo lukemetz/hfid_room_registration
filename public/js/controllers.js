@@ -36,3 +36,5 @@ MyCtrl2.$inject = [];
 
 var ConfirmController = function($scope) {
 }
+var RoomSelectController = function($scope) {
+}
