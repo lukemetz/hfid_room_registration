@@ -82,18 +82,17 @@
         table(width="100%")
           thead
             tr
-              th Room Name
-              th Building
-              th Capacity
+              th
+                a(href="javascript:void(0);", ng-click="predicate='name'; reverse=!reverse")#roomName Room Name
+              th
+                a(href="javascript:void(0);", ng-click="predicate='building'; reverse=!reverse") Building
+              th
+                a(href="javascript:void(0);", ng-click="predicate='capacity'; reverse=!reverse") Capacity
           tbody
-            tr
-              td AC102
-              td AC
-              td 30
-            tr
-              td A
-              td A
-              td A
+            tr(ng-repeat="room in rooms | orderBy:predicate:reverse")
+              td {{room.name}}
+              td {{room.building}}
+              td {{room.capacity}}
   .row
     .large-2.right
       a(href="#").button.right Next
