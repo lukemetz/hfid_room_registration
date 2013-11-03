@@ -16,8 +16,18 @@ angular.module('myApp.services', [])
         {name:"AC103", building:"AC", capacity:2},
         {name:"AC104", building:"AC", capacity:9},
         {name:"AC105", building:"AC", capacity:3},
-        {name:"AC106", building:"AC", capacity:7}
+        {name:"AC106", building:"AC", capacity:7},
+        {name:"MH105", building:"MH", capacity:3},
+        {name:"MH106", building:"MH", capacity:7},
+        {name:"CC106", building:"CC", capacity:10}
       ];
     }
     return RoomsFactory;
-  });
+  })
+  .value("defaultFilter", {
+        building: {
+          MH: true,
+          AC: true,
+          CC: true
+      }
+  })

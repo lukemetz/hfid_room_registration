@@ -36,6 +36,13 @@ MyCtrl2.$inject = [];
 
 var ConfirmController = function($scope) {
 }
-var RoomSelectController = function($scope, RoomsFactory) {
-  $scope.rooms = RoomsFactory.getRooms()
+var RoomSelectController = function($scope, RoomsFactory, defaultFilter) {
+  $scope.rooms = RoomsFactory.getRooms();
+  $scope.filter = defaultFilter;
+  $scope.validRooms = function(room) {
+    console.log(room);
+    return true;
+  };
+  console.log($scope.filter);
+
 }
