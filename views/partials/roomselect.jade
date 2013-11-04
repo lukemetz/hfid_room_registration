@@ -22,38 +22,39 @@
             div.large-2.columns
               label(for="recurring-input").right Recurring?
             div.large-2.columns
-              input(type="checkbox")#recurring-input
-
-            .large-2.columns
-              label.right.inline Start
-            .large-2.columns
-              input(type="text")
-            .large-2.columns
-              label.right.inline End
-            .large-2.columns
-              input(type="text")
-          .row
-            .large-1.columns.large-offset-2
-              label(for="mon").right.inline Mon 
-              input(type="checkbox")#mon
-            .large-1.columns
-              label(for="tues").right.inline Tues
-              input(type="checkbox")#tues
-            .large-1.columns
-              label(for="wed").right.inline Wed
-              input(type="checkbox")#wed
-            .large-1.columns
-              label(for="thur").right.inline Thur
-              input(type="checkbox")#thur
-            .large-1.columns
-              label(for="fri").right.inline Fri
-              input(type="checkbox")#fri
-            .large-1.columns
-              label(for="sat").right.inline Sat
-              input(type="checkbox")#sat
-            .large-1.columns.large-uncentered
-              label(for="Sun").right.inline Sun
-              input(type="checkbox")#sun
+              input(type="checkbox", ng-model="recurring", ng-init="recurring=false")#recurring-input
+            div.large-8.columns(ng-if="!recurring")
+            div(ng-if="recurring")
+              .large-2.columns
+                label.right.inline Start
+              .large-2.columns
+                input(type="text")
+              .large-2.columns
+                label.right.inline End
+              .large-2.columns
+                input(type="text")
+            .row(ng-if="recurring")
+              .large-1.columns.large-offset-2
+                label(for="mon").right.inline Mon 
+                input(type="checkbox")#mon
+              .large-1.columns
+                label(for="tues").right.inline Tues
+                input(type="checkbox")#tues
+              .large-1.columns
+                label(for="wed").right.inline Wed
+                input(type="checkbox")#wed
+              .large-1.columns
+                label(for="thur").right.inline Thur
+                input(type="checkbox")#thur
+              .large-1.columns
+                label(for="fri").right.inline Fri
+                input(type="checkbox")#fri
+              .large-1.columns
+                label(for="sat").right.inline Sat
+                input(type="checkbox")#sat
+              .large-1.columns.large-uncentered
+                label(for="Sun").right.inline Sun
+                input(type="checkbox")#sun
 
 
 
@@ -122,7 +123,6 @@
               td {{room.name}}
               td {{room.building}}
               td {{room.capacity}}
-  .row
     .large-2.right
       a(href="#").button.right Next
 
