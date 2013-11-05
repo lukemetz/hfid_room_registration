@@ -36,7 +36,10 @@ angular.module("myApp.controllers", ['ui.calendar']).
     /* event sources array*/
     $scope.eventSources = [];
   }])
-  .controller("ConfirmController", ["$scope", function($scope) {
+  .controller("ConfirmController", ["$scope", "ConfirmFactory", function($scope, ConfirmFactory) {
+    $scope.roomName = ConfirmFactory.getCurrent().room
+    $scope.date = ConfirmFactory.getCurrent().on
+    $scope.time = ConfirmFactory.getCurrent().at
   }])
   .controller("RoomSelectController", ["$scope", "RoomsFactory", "defaultFilter",  function($scope, RoomsFactory, defaultFilter) {
     $scope.rooms = RoomsFactory.getRooms();
