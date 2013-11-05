@@ -17,3 +17,4 @@ angular.module('myApp', [
     $routeProvider.when('/roomSelect', {templateUrl: 'partial/roomselect', controller:"RoomSelectController"});
     $routeProvider.otherwise({redirectTo: '/home'});
   }])
+ 
