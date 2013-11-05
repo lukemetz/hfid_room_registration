@@ -5,6 +5,7 @@
 
 var express = require('express'),
   routes = require('./routes'),
+  dev = require('./routes/development')
   api = require('./routes/api');
 
 var app = module.exports = express();
@@ -31,6 +32,7 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
+app.get('/populate', dev.populate);
 app.get('/partial/:name', routes.partial);
 
 // JSON API

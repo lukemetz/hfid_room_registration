@@ -3,21 +3,21 @@ var mongoose = require('mongoose')
 
 var roomSchema = new Schema({
                             name: {type: String, unique: true},
-                            Blackout Capability: Boolean,
-                            Handicap Accessability: Boolean,
-                            Soft seating: Boolean,
-                            Tables/Chairs: Boolean,
+                            BlackoutCapability: Boolean,
+                            HandicapAccessability: Boolean,
+                            Softseating: Boolean,
+                            TablesChairs: Boolean,
                             Whiteboards: Boolean,
                             Blackboards: Boolean,
-                            Projection Screen: Boolean,
-                            LCD Projector: Boolean,
-                            Carpet Flooring: Boolean,
-                            Tile Flooring: Boolean,
-                            Multi-media: Boolean,
+                            ProjectionScreen: Boolean,
+                            LCDProjector: Boolean,
+                            CarpetFlooring: Boolean,
+                            TileFlooring: Boolean,
+                            Multimedia: Boolean,
                             Benches: Boolean,
                             Podium: Boolean,
-                            Tiered seating: Boolean,
-                            Do not rearrange room without permission: Boolean
+                            TieredSeating: Boolean,
+                            DoNotRearrange: Boolean
                           });
 
 var Room = mongoose.model('Room', roomSchema);
