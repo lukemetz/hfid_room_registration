@@ -1,0 +1,131 @@
+.container
+  .row
+    .large-12.columns.center
+      h1 Room Select
+      .panel
+        form
+          .row
+            div.large-2.columns
+              label(for="date-input").right.inline Date
+            div.large-2.columns
+              input(type="text", placeholder="Date")#date-input
+            div.large-2.columns
+              label(for="date-input").right.inline Start Time
+            div.large-2.columns
+              input(type="text", placeholder="Start Time")#start-input
+            div.large-2.columns
+              label(for="date-input").right.inline Duration
+            div.large-2.columns
+              input(type="text", placeholder="Duration")#duration-input
+
+          .row
+            div.large-2.columns
+              label(for="recurring-input").right Recurring?
+            div.large-2.columns
+              input(type="checkbox", ng-model="recurring", ng-init="recurring=false")#recurring-input
+            div.large-8.columns(ng-if="!recurring")
+            div(ng-if="recurring")
+              .large-2.columns
+                label.right.inline Start
+              .large-2.columns
+                input(type="text")
+              .large-2.columns
+                label.right.inline End
+              .large-2.columns
+                input(type="text")
+            .row(ng-if="recurring")
+              .large-1.columns.large-offset-2
+                label(for="mon").right.inline Mon 
+                input(type="checkbox")#mon
+              .large-1.columns
+                label(for="tues").right.inline Tues
+                input(type="checkbox")#tues
+              .large-1.columns
+                label(for="wed").right.inline Wed
+                input(type="checkbox")#wed
+              .large-1.columns
+                label(for="thur").right.inline Thur
+                input(type="checkbox")#thur
+              .large-1.columns
+                label(for="fri").right.inline Fri
+                input(type="checkbox")#fri
+              .large-1.columns
+                label(for="sat").right.inline Sat
+                input(type="checkbox")#sat
+              .large-1.columns.large-uncentered
+                label(for="Sun").right.inline Sun
+                input(type="checkbox")#sun
+
+
+
+  .row
+    div.large-4.columns
+      .panel
+        h3 Filters
+        h5 Building
+        label(for="mh")
+          input(type="checkbox", ng-model="filter.building.MH")#mh
+          span.custom.checkbox
+          | MH
+        label(for="ac")
+          input(type="checkbox", ng-model="filter.building.AC")#ac
+          span.custom.checkbox
+          | AC
+        label(for="cc")
+          input(type="checkbox", ng-model="filter.building.CC")#cc
+          span.custom.checkbox
+          | CC
+        h5 Capacity
+        label(for="capacity")
+          input(type="checkbox")#capacity
+          span.custom.checkbox
+          | Should these be checkbox?
+        h5 Type
+        label(for="studio")
+          input(type="checkbox", ng-model="filter.type.studio")#studio
+          | Studio
+        label(for="lecture")
+          input(type="checkbox", ng-model="filter.type.lecture")#lecture
+          | Lecture
+        label(for="lab")
+          input(type="checkbox", ng-model="filter.type.lab")#lab
+          | Lab
+
+        h5 Equipment
+        label(for="projector")
+          input(type="checkbox", ng-model="filter.equipment.projector")#projector
+          | Projector
+        label(for="whiteboard")
+          input(type="checkbox", ng-model="filter.equipment.whiteboard")#whiteboard
+          | Whiteboard
+        label(for="chalkboard")
+          input(type="checkbox", ng-model="filter.equipment.chalkboard")#chalkboard
+          | Chalkboard
+        label(for="speakers")
+          input(type="checkbox", ng-model="filter.equipment.speakers")#speakers
+          | Speakers
+
+
+
+    .large-8.columns
+      .panel
+        table(width="100%")
+          thead
+            tr
+              th
+                a(href="javascript:void(0);", ng-click="predicate='name'; reverse=!reverse")#roomName Room Name
+              th
+                a(href="javascript:void(0);", ng-click="predicate='building'; reverse=!reverse") Building
+              th
+                a(href="javascript:void(0);", ng-click="predicate='capacity'; reverse=!reverse") Capacity
+          tbody
+            tr(ng-repeat="room in rooms | orderBy:predicate:reverse | filterRooms:filter")
+              td {{room.name}}
+              td {{room.building}}
+              td {{room.capacity}}
+    .large-2.right
+      a(href="#").button.right Next
+
+
+
+
