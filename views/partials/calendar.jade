@@ -1,13 +1,14 @@
-.form(class="custom")
-      div(class="row")
-        div(class="small-8")
-          div(class="row")
-            div(class="small-2 columns")
-              label(for="room" class="right inline") Room
-            div(class="small-5 columns")
-              input(type="text" ng-model="room" placeholder="Select a room")#room
-            div(class="small-3 columns")
-              label(for="recur")
-                span(class="custom checkbox") Weekly? 
-                input(type="checkbox" ng-model="weekly")#recur
-p
+body
+  .form(class="custom")
+        div(class="row")
+          div(class="small-8")
+            div(class="row")
+              div(class="small-2 columns")
+                label(for="room" class="right inline") Room
+              div(class="small-5 columns")
+                input(type="text" ng-model="room" placeholder="Select a room")#room
+              div(class="small-3 columns")
+                label(for="recur")
+                  span(class="custom checkbox") Weekly? 
+                  input(type="checkbox" ng-model="weekly")#recur
+  div(ui-calendar="calenderConfig" ng-model="eventSources" calendar="myCalendar")

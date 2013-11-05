@@ -7,7 +7,8 @@ angular.module('myApp', [
     'myApp.filters',
     'myApp.services',
     'myApp.directives',
-    'myApp.controllers']).
+    'myApp.controllers',
+    'ui.calendar']).
   config(['$routeProvider', function($routeProvider, $locationProvider) {
     $routeProvider.when('/home', {templateUrl: 'partial/home', controller: "HomeController"});
     $routeProvider.when('/calendar', {templateUrl: 'partial/calendar', controller: "CalController"});
