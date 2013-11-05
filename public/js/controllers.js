@@ -111,12 +111,25 @@ var date = new Date();
     /* event sources array*/
     $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
   }])
-  .controller("ConfirmController", ["$scope", "ConfirmFactory", function($scope, ConfirmFactory) {
+  .controller("ConfirmController", ["$scope", "ConfirmFactory","$location", function($scope, ConfirmFactory, $location) {
     $scope.roomName = ConfirmFactory.getCurrent().room
     $scope.date = ConfirmFactory.getCurrent().on
     $scope.time = ConfirmFactory.getCurrent().at
+
+    $scope.backButton = function() {
+      $location.path('/');
+      console.log ("cat")
+    }
+
+    $scope.confirmButton = function() {
+      $location.path('/');
+      console.log ("dog")
+    }
   }])
+
   .controller("RoomSelectController", ["$scope", "RoomsFactory", "defaultFilter",  function($scope, RoomsFactory, defaultFilter) {
     $scope.rooms = RoomsFactory.getRooms();
     $scope.filter = defaultFilter;
   }]);
+
+  
