@@ -46,7 +46,6 @@ angular.module("myApp.controllers", ['ui.calendar']).
     }
 
     $scope.confirmButton = function() {
-
       $location.path('/');
     }
   }])
@@ -62,7 +61,44 @@ angular.module("myApp.controllers", ['ui.calendar']).
 
   .controller("ConflictPageController", ["$scope", "RoomsFactory", "defaultFilter",  function($scope, RoomsFactory, defaultFilter) {
     $scope.filter = defaultFilter
-    $scope.reses = [{},{},{},{}]
+    $scope.reses = [{name: "Meeting for HFID",
+                      room: "AC 109",
+                      date: "11/12",
+                      time: 15,
+                      end: 17,
+                      duration: 2,
+                      conflicted: false,
+                      _id: "first"},
+                    {name: "Meeting for HFID",
+                      room: "AC 109",
+                      date: "11/19",
+                      time: 15,
+                      end: 17,
+                      duration: 2,
+                      conflicted: true,
+                      _id: "second"},
+                    {name: "Meeting for HFID",
+                      room: "AC 109",
+                      date: "11/26",
+                      time: 15,
+                      end: 17,
+                      duration: 2,
+                      conflicted: false,
+                      _id: "third"},
+                    {name: "Meeting for HFID",
+                      room: "AC 109",
+                      date: "12/3",
+                      time: 15,
+                      end: 17,
+                      duration: 2,
+                      _id: "fourth",
+                      conflicted: false}];
+
+
+    $scope.skipFunction = function(conflictedId) {
+      console.log(conflictedId);
+      console.log("KEELY");
+    }
   }]);
 
 

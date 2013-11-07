@@ -14,7 +14,7 @@ angular.module('myApp', [
     $routeProvider.when('/home', {templateUrl: 'partial/home', controller: "HomeController"});
     $routeProvider.when('/calendar', {templateUrl: 'partial/calendar', controller: "CalController"});
     $routeProvider.when('/confirm', {templateUrl: 'partial/confirm', controller: "ConfirmController"});
-    $routeProvider.when('/ConflictPage', {templateUrl: 'partial/ConflictPage', controller: "ConflictPage"});
+    $routeProvider.when('/ConflictPage', {templateUrl: 'partial/ConflictPage', controller: "ConflictPageController"});
     $routeProvider.when('/roomSelect', {templateUrl: 'partial/roomselect', controller:"RoomSelectController"});
     $routeProvider.otherwise({redirectTo: '/home'});
   }])
