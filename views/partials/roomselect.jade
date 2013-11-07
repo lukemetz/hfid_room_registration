@@ -8,11 +8,11 @@
             div.large-2.columns
               label(for="date-input").right.inline Date
             div.large-2.columns
-              input(type="text", placeholder="Date")#date-input
+              input(type="text", placeholder="Date", ng-model="date")#date-input
             div.large-2.columns
               label(for="date-input").right.inline Start Time
             div.large-2.columns
-              input(type="text", placeholder="Start Time")#start-input
+              input(type="text", placeholder="Start Time", ng-model="start")#start-input
             div.large-2.columns
               label(for="date-input").right.inline Duration
             div.large-2.columns
@@ -99,11 +99,15 @@
                 a(href="javascript:void(0);", ng-click="predicate='building'; reverse=!reverse") Building
               th
                 a(href="javascript:void(0);", ng-click="predicate='capacity'; reverse=!reverse") Capacity
+              th
+                a(href="javascript:void(0);") 
           tbody
             tr(ng-repeat="room in rooms | orderBy:predicate:reverse | filterRooms:filter")
               td {{room.name}}
               td {{room.building}}
               td {{room.capacity}}
+              td
+                a(href="/#/confirm", ng-click="submit(room.name)").button.small Select Room
     //{{ rooms | json }}
     .large-2.right
       a(href="#").button.right Next

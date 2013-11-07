@@ -51,11 +51,11 @@ angular.module('myApp.services', [])
   })
     .factory("ConfirmFactory", function() {
     var ConfirmFactory = {};
+    ConfirmFactory.current = {room:"", at:"", on:""};
     ConfirmFactory.setCurrent = function(current) {
       ConfirmFactory.current = current;
     }
     ConfirmFactory.getCurrent = function() {
-      ConfirmFactory.current = {room:"AC102", on: "7/27", at: "1:00pm"}
       return ConfirmFactory.current;
     }
     return ConfirmFactory;
