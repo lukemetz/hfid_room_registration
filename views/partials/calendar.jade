@@ -1,14 +1,62 @@
-body
-  .form(class="custom")
-        div(class="row")
-          div(class="small-8")
-            div(class="row")
-              div(class="small-2 columns")
-                label(for="room" class="right inline") Room
-              div(class="small-5 columns")
-                input(type="text" ng-model="room" placeholder="Select a room")#room
-              div(class="small-3 columns")
-                label(for="recur")
-                  span(class="custom checkbox") Weekly? 
-                  input(type="checkbox" ng-model="weekly")#recur
-  div(ui-calendar ng-model="eventSources")
+.container
+  .row
+    .small-12.columns.center
+      h1 Select a time
+      .panel
+        form
+          .row
+            div.small-2.columns
+              label(for="room-input").right.inline Room
+            Room.small-3.columns
+              input(type="text", placeholder="Room")#room-input
+            div.small-2.columns
+              label(for="date-input").right.inline Date
+            div.small-3.columns
+              input(ui-date ui-date-format="MM-dd-yy" placeholder="Date" ng-model="date" ng-blur="dateChange(date)")#date-input
+            div.small-1.columns
+              input(type="checkbox", ng-model="recurring", ng-init="recurring=false")#recurring-input
+            div.small-1.columns
+              label(for="recurring-input").right Recurring?
+          .row
+            div.small-8.columns(ng-if="!recurring")
+            div(ng-if="recurring")
+              .small-2.columns
+                label.right.inline Start
+              .small-2.columns
+                input(type="text")
+              .small-2.columns
+                label.right.inline End
+              .small-2.columns
+                input(type="text")
+            .row(ng-if="recurring")
+              .small-1.columns.small-offset-2
+                label(for="mon").right.inline Mon 
+                input(type="checkbox")#mon
+              .small-1.columns
+                label(for="tues").right.inline Tues
+                input(type="checkbox")#tues
+              .small-1.columns
+                label(for="wed").right.inline Wed
+                input(type="checkbox")#wed
+              .small-1.columns
+                label(for="thur").right.inline Thur
+                input(type="checkbox")#thur
+              .small-1.columns
+                label(for="fri").right.inline Fri
+                input(type="checkbox")#fri
+              .small-1.columns
+                label(for="sat").right.inline Sat
+                input(type="checkbox")#sat
+              .small-1.columns.small-uncentered
+                label(for="Sun").right.inline Sun
+                input(type="checkbox")#sun
+
+
+
+  .row
+    div.large-12.columns(ui-calendar="uiConfig.calendar" calendar="myCalendar" ng-model="eventSources")
+    a(href="#").button.right Next
+
+
+
+

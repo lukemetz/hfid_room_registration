@@ -1,19 +1,29 @@
 .container
   .row
-    .columns.small-8
+    .columns.small-7
       h1 Hello {{name}}
       .panel
         h3 Make a Room Reservation
         input(ng-model="room") 
         span(ng-switch="room")
           span(ng-switch-when="any")
-            a(href="viewA") SubmitA
+            a(href="/#/roomSelect").button.small Submit
           span(ng-switch-default)
-            a(href="viewB") SubmitB
+            a(href="/#/calendar").button.small Submit
       .panel
         h3 Your Current Events
-    .columns.small-4
+        table(style="width:100%;")
+          tr(ng-repeat="reservation in reservations")
+            td {{reservation.name}}
+            td {{reservation.date}}
+            td {{reservation.time}}
+            td
+              a.button.small(href="javascript:void(0);", ng-click="cancel($index)") Cancel
+    .columns.small-5.columns
       .panel
         h3 Upcoming Events
-
-
+        table(style="width:100%;")
+          tr(ng-repeat="event in currentEvents")
+            td {{event.name}}
+            td {{event.start}} - {{event.end}}
+            td {{event.location}}

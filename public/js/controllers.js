@@ -13,30 +13,50 @@ angular.module("myApp.controllers", ['ui.calendar']).
   });
 
   }])
-  .controller("HomeController", ["$scope", function($scope) {
+  .controller("HomeController", ["$scope", "UserFactory", function($scope, UserFactory) {
     $scope.room = "any";
-    $scope.room = "an33y";
+    $scope.currentEvents = UserFactory.currentEvents;
+    $scope.reservations = UserFactory.reservations;
+    $scope.cancel = function(index) {
+      if (confirm("Are you sure")) { //Really, I used system popups....
+        $scope.reservations.splice(index,1);
+      }
+    }
   }])
   .controller("CalController", ["$scope", function($scope) {
     /* config object */
+    $scope.dateChange = function(dateString) {
+      console.log(dateString);
+      if(dateString !== 0) {
+        var month = parseInt(dateString.substring(0,2));
+        var day = parseInt(dateString.substring(3,5));
+        var year = parseInt(dateString.substring(6));
+        $scope.myCalendar.fullCalendar('gotoDate',year,month-1,day);
+     }
+    };
+    $scope.events = [];
     $scope.uiConfig = {
       calendar:{
         height: 450,
         editable: true,
-        header:{
-          left: 'title',
-          center: '',
-          right: 'today prev,next'
+        selectable: true,
+        selectHelper: true,
+        select: function(startDate, endDate, allDay, jsEvent, view) {
+          alert("Date selected");
         },
-        dayClick: $scope.alertEventOnClick,
-        eventDrop: $scope.alertOnDrop,
-        eventResize: $scope.alertOnResize
+        defaultView: "agendaWeek",
+        header:{
+          left: '',
+          center: 'title',
+          right: 'today prev next'
+        },
       }
     };
     /* event sources array*/
-    $scope.eventSources = [];
+    $scope.eventSources = [$scope.events];
   }])
-  .controller("ConfirmController", ["$scope", "ConfirmFactory","$location", function($scope, ConfirmFactory, $location) {
+  .controller("ConfirmController", ["$scope", "ConfirmFactory","$location", "UserFactory",
+      function($scope, ConfirmFactory, $location, UserFactory) {
     $scope.roomName = ConfirmFactory.getCurrent().room
     $scope.date = ConfirmFactory.getCurrent().on
     $scope.time = ConfirmFactory.getCurrent().at
@@ -47,6 +67,7 @@ angular.module("myApp.controllers", ['ui.calendar']).
 
     $scope.confirmButton = function() {
       $location.path('/');
+      UserFactory.addReservation({name:$scope.roomName, date: $scope.date, time: $scope.time});
     }
   }])
 

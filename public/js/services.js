@@ -49,7 +49,7 @@ angular.module('myApp.services', [])
         max: ""
       }
   })
-    .factory("ConfirmFactory", function() {
+  .factory("ConfirmFactory", function() {
     var ConfirmFactory = {};
     ConfirmFactory.current = {room:"", at:"", on:""};
     ConfirmFactory.setCurrent = function(current) {
@@ -60,3 +60,20 @@ angular.module('myApp.services', [])
     }
     return ConfirmFactory;
   })
+  .factory("UserFactory", function() {
+    var UserFactory = {};
+    UserFactory.reservations = [
+      {name:"Some reservation", date:"date", time:"time"},
+      {name:"reservation", date:"date", time:"time"}
+    ];
+    UserFactory.currentEvents = [
+      {name:"OFAC", date:"10/12/13", start:"9:00AM", end:"10:00AM", location:"lotD"},
+      {name:"Career Fair", date:"12/12/13", start:"11:00AM", end:"10:00AM", location:"Mez"},
+      {name:"Microsoft Tech Talk", date:"13/12/13", start:"7:00PM", end:"8:00PM", location:"AC 107"}
+    ];
+    UserFactory.addReservation = function(reservation) {
+      UserFactory.reservations.push(reservation);
+    }
+    return UserFactory;
+  });
+
