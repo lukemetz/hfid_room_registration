@@ -29,8 +29,8 @@ var resSchema = new Schema({
                             name: String,
                             room: {type: Schema.Types.ObjectId, ref: 'User'},
                             date: Date,
-                            time: int,
-                            end: int,
+                            time: Number,
+                            end: Number,
                             duration: Number //this is in hours aka 1hour = 1 and 2hours 30 min = 2.5
                           });
 
