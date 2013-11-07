@@ -80,32 +80,11 @@
           input(type="checkbox")#capacity
           span.custom.checkbox
           | Should these be checkbox?
-        h5 Type
-        label(for="studio")
-          input(type="checkbox", ng-model="filter.type.studio")#studio
-          | Studio
-        label(for="lecture")
-          input(type="checkbox", ng-model="filter.type.lecture")#lecture
-          | Lecture
-        label(for="lab")
-          input(type="checkbox", ng-model="filter.type.lab")#lab
-          | Lab
-
-        h5 Equipment
-        label(for="projector")
-          input(type="checkbox", ng-model="filter.equipment.projector")#projector
-          | Projector
-        label(for="whiteboard")
-          input(type="checkbox", ng-model="filter.equipment.whiteboard")#whiteboard
-          | Whiteboard
-        label(for="chalkboard")
-          input(type="checkbox", ng-model="filter.equipment.chalkboard")#chalkboard
-          | Chalkboard
-        label(for="speakers")
-          input(type="checkbox", ng-model="filter.equipment.speakers")#speakers
-          | Speakers
-
-
+        h5 Features
+        span(ng-repeat="(name, value) in filter.features")
+          label(for="{{name}}")
+            input(type="checkbox", id="{{name}}", ng-model="filter.features[name]")
+            | {{name}}
 
     .large-8.columns
       .panel

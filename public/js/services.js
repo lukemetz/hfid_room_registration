@@ -26,6 +26,23 @@ angular.module('myApp.services', [])
           MH: true,
           AC: true,
           CC: true
+      },
+      features: {
+        BlackoutCapability: false,
+        HandicapAccessability: false,
+        Softseating: false,
+        TablesChairs: false,
+        Whiteboards: false,
+        Blackboards: false,
+        ProjectionScreen: false,
+        LCDProjector: false,
+        CarpetFlooring: false,
+        TileFlooring: false,
+        Multimedia: false,
+        Benches: false,
+        Podium: false,
+        TieredSeating: false,
+        DoNotRearrange: false
       }
   })
     .factory("ConfirmFactory", function() {
