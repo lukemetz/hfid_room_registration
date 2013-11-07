@@ -19,22 +19,35 @@ angular.module("myApp.controllers", ['ui.calendar']).
   }])
   .controller("CalController", ["$scope", function($scope) {
     /* config object */
+    $scope.dateChange = function(dateString) {
+      console.log(dateString);
+      if(dateString !== 0) {
+        var month = parseInt(dateString.substring(0,2));
+        var day = parseInt(dateString.substring(3,5));
+        var year = parseInt(dateString.substring(6));
+        $scope.myCalendar.fullCalendar('gotoDate',year,month-1,day);
+     }
+    };
+    $scope.events = [];
     $scope.uiConfig = {
       calendar:{
         height: 450,
         editable: true,
-        header:{
-          left: 'title',
-          center: '',
-          right: 'today prev,next'
+        selectable: true,
+        selectHelper: true,
+        select: function(startDate, endDate, allDay, jsEvent, view) {
+          alert("Date selected");
         },
-        dayClick: $scope.alertEventOnClick,
-        eventDrop: $scope.alertOnDrop,
-        eventResize: $scope.alertOnResize
+        defaultView: "agendaWeek",
+        header:{
+          left: '',
+          center: 'title',
+          right: 'today prev next'
+        },
       }
     };
     /* event sources array*/
-    $scope.eventSources = [];
+    $scope.eventSources = [$scope.events];
   }])
   .controller("ConfirmController", ["$scope", "ConfirmFactory", function($scope, ConfirmFactory) {
     $scope.roomName = ConfirmFactory.getCurrent().room
