@@ -12,7 +12,7 @@
             a(href="/#/calendar").button.small Submit
       .panel
         h3 Your Current Events
-        table
+        table(style="width:100%;")
           tr(ng-repeat="reservation in reservations")
             td {{reservation.name}}
             td {{reservation.date}}
@@ -22,7 +22,7 @@
     .columns.small-5.columns
       .panel
         h3 Upcoming Events
-        table
+        table(style="width:100%;")
           tr(ng-repeat="event in currentEvents")
             td {{event.name}}
             td {{event.start}} - {{event.end}}
