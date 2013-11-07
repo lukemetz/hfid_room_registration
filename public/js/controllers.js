@@ -13,9 +13,15 @@ angular.module("myApp.controllers", ['ui.calendar']).
   });
 
   }])
-  .controller("HomeController", ["$scope", function($scope) {
+  .controller("HomeController", ["$scope", "UserFactory", function($scope, UserFactory) {
     $scope.room = "any";
-    $scope.room = "an33y";
+    $scope.currentEvents = UserFactory.currentEvents;
+    $scope.reservations = UserFactory.reservations;
+    $scope.cancel = function(index) {
+      if (confirm("Are you sure")) { //Really, I used system popups....
+        $scope.reservations.splice(index,1);
+      }
+    }
   }])
   .controller("CalController", ["$scope", function($scope) {
     /* config object */
@@ -36,7 +42,8 @@ angular.module("myApp.controllers", ['ui.calendar']).
     /* event sources array*/
     $scope.eventSources = [];
   }])
-  .controller("ConfirmController", ["$scope", "ConfirmFactory","$location", function($scope, ConfirmFactory, $location) {
+  .controller("ConfirmController", ["$scope", "ConfirmFactory","$location", "UserFactory",
+      function($scope, ConfirmFactory, $location, UserFactory) {
     $scope.roomName = ConfirmFactory.getCurrent().room
     $scope.date = ConfirmFactory.getCurrent().on
     $scope.time = ConfirmFactory.getCurrent().at
@@ -46,8 +53,7 @@ angular.module("myApp.controllers", ['ui.calendar']).
     }
 
     $scope.confirmButton = function() {
-
-      $location.path('/');
+      UserFactory.addReservation({name:$scope.roomName, date: $scope.date, time: $scope.time});
     }
   }])
 
