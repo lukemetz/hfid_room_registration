@@ -1,9 +1,29 @@
-var models = require("../models.js");
+var mongoose = require('mongoose'),
+    models = require("../models.js");
+
+exports.dropDb = function(req, res){
+    mongoose.connection.db.dropDatabase();
+    res.send("Database Dropped");
+}
 
 exports.populate = function(req, res){
-  var AC109 = new models.Room({name: "AC 109", 
+  var AC102 = new models.Room({name: "AC 102", 
+                            BlackoutCapability: true,
+                            HandicapAccessability: true,
+                            Softseating: true,
+                            TablesChairs: true,
+                            Blackboards: true,
+                            ProjectionScreen: true,
+                            LCDProjector: true,
+                            TileFlooring: true,
+                            DoNotRearrange: true});
+    AC102.save(function(err){
+        if (err) return ("error saving AC102", err);
+        console.log('AC102 saved');
+    });
+    var AC109 = new models.Room({name: "AC 109", 
                             BlackoutCapability: false,
-                            HandicapAccessability: false,
+                            HandicapAccessability: true,
                             Softseating: false,
                             TablesChairs: true,
                             Whiteboards: false,
