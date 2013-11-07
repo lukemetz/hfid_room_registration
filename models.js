@@ -3,21 +3,24 @@ var mongoose = require('mongoose')
 
 var roomSchema = new Schema({
                             name: {type: String, unique: true},
-                            Blackout Capability: Boolean,
-                            Handicap Accessability: Boolean,
-                            Soft seating: Boolean,
-                            Tables/Chairs: Boolean,
+                            building: String,
+                            capacity: Number,
+                            //Features
+                            BlackoutCapability: Boolean,
+                            HandicapAccessability: Boolean,
+                            Softseating: Boolean,
+                            TablesChairs: Boolean,
                             Whiteboards: Boolean,
                             Blackboards: Boolean,
-                            Projection Screen: Boolean,
-                            LCD Projector: Boolean,
-                            Carpet Flooring: Boolean,
-                            Tile Flooring: Boolean,
-                            Multi-media: Boolean,
+                            ProjectionScreen: Boolean,
+                            LCDProjector: Boolean,
+                            CarpetFlooring: Boolean,
+                            TileFlooring: Boolean,
+                            Multimedia: Boolean,
                             Benches: Boolean,
                             Podium: Boolean,
-                            Tiered seating: Boolean,
-                            Do not rearrange room without permission: Boolean
+                            TieredSeating: Boolean,
+                            DoNotRearrange: Boolean
                           });
 
 var Room = mongoose.model('Room', roomSchema);
@@ -25,7 +28,10 @@ var Room = mongoose.model('Room', roomSchema);
 var resSchema = new Schema({
                             name: String,
                             room: {type: Schema.Types.ObjectId, ref: 'User'},
-                            time: Date
+                            date: Date,
+                            time: int,
+                            end: int,
+                            duration: Number //this is in hours aka 1hour = 1 and 2hours 30 min = 2.5
                           });
 
 var Reservation = mongoose.model('Reservation', resSchema);

@@ -8,11 +8,11 @@
             div.large-2.columns
               label(for="date-input").right.inline Date
             div.large-2.columns
-              input(type="text", placeholder="Date")#date-input
+              input(type="text", placeholder="Date", ng-model="date")#date-input
             div.large-2.columns
               label(for="date-input").right.inline Start Time
             div.large-2.columns
-              input(type="text", placeholder="Start Time")#start-input
+              input(type="text", placeholder="Start Time", ng-model="start")#start-input
             div.large-2.columns
               label(for="date-input").right.inline Duration
             div.large-2.columns
@@ -76,36 +76,17 @@
           span.custom.checkbox
           | CC
         h5 Capacity
-        label(for="capacity")
-          input(type="checkbox")#capacity
-          span.custom.checkbox
-          | Should these be checkbox?
-        h5 Type
-        label(for="studio")
-          input(type="checkbox", ng-model="filter.type.studio")#studio
-          | Studio
-        label(for="lecture")
-          input(type="checkbox", ng-model="filter.type.lecture")#lecture
-          | Lecture
-        label(for="lab")
-          input(type="checkbox", ng-model="filter.type.lab")#lab
-          | Lab
-
-        h5 Equipment
-        label(for="projector")
-          input(type="checkbox", ng-model="filter.equipment.projector")#projector
-          | Projector
-        label(for="whiteboard")
-          input(type="checkbox", ng-model="filter.equipment.whiteboard")#whiteboard
-          | Whiteboard
-        label(for="chalkboard")
-          input(type="checkbox", ng-model="filter.equipment.chalkboard")#chalkboard
-          | Chalkboard
-        label(for="speakers")
-          input(type="checkbox", ng-model="filter.equipment.speakers")#speakers
-          | Speakers
-
-
+        label(for="capacity-min").large-6.columns
+          | Min
+          input(type="text", ng-model="filter.capacity.min")#capacity-min
+        label(for="capacity-max").large-6.columns
+          | Max
+          input(type="text", ng-model="filter.capacity.max")#capacity-max
+        h5 Features
+        span(ng-repeat="(name, value) in filter.features")
+          label(for="{{name}}")
+            input(type="checkbox", id="{{name}}", ng-model="filter.features[name]")
+            | {{name}}
 
     .large-8.columns
       .panel
@@ -118,11 +99,16 @@
                 a(href="javascript:void(0);", ng-click="predicate='building'; reverse=!reverse") Building
               th
                 a(href="javascript:void(0);", ng-click="predicate='capacity'; reverse=!reverse") Capacity
+              th
+                a(href="javascript:void(0);") 
           tbody
             tr(ng-repeat="room in rooms | orderBy:predicate:reverse | filterRooms:filter")
               td {{room.name}}
               td {{room.building}}
               td {{room.capacity}}
+              td
+                a(href="/#/confirm", ng-click="submit(room.name)").button.small Select Room
+    //{{ rooms | json }}
     .large-2.right
       a(href="#").button.right Next
 
