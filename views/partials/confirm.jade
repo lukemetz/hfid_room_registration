@@ -7,30 +7,17 @@
                 fieldset
                     label Event Name:
                     input(type='text', placeholder='AC 103')
-                
-            
                     label Customer/Organization:
                     input(type='text', placeholder='Potatoe')
-
-            
                     label Email:
                     input(type='text', placeholder='yourName@email.com')
-
-
                     label.checkbox
                         input(type='checkbox')
                         |Public
-
-
-        
         .large-8.columns.panel
             h3 You have reserved
             h4 Room: {{roomName}}
             h4 On: {{date}}
-
             h4 At: {{time}}
-
-            button.btn.btn-primary.btn-primary#backButton(type='button',ng-click="backButton()") Back 
-            &nbsp
-            button.btn.btn-primary.btn-primary#confirmButton(type='button',ng-click="confirmButton()") Confirm
-
+            a.button.btn-primary.btn-primary#backButton(type='button', ng-click="confirmButton()", href="/#/roomSelect") Back 
+            a.button.btn-primary.btn-primary#confirmButton(type='button', href="/#/") Confirm

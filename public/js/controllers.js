@@ -42,32 +42,28 @@ angular.module("myApp.controllers", ['ui.calendar']).
     $scope.time = ConfirmFactory.getCurrent().at
 
     $scope.backButton = function() {
-      $location.path('/');
-      console.log ("cat")
+      $location.path('/#/roomSelect');
     }
 
     $scope.confirmButton = function() {
+
       $location.path('/');
-      console.log ("dog")
     }
   }])
 
-  .controller("RoomSelectController", ["$scope", "RoomsFactory", "defaultFilter",  function($scope, RoomsFactory, defaultFilter) {
+  .controller("RoomSelectController", ["$scope", "$location", "RoomsFactory", "defaultFilter", "ConfirmFactory",
+      function($scope, $location, RoomsFactory, defaultFilter, ConfirmFactory) {
     $scope.rooms = RoomsFactory.getRooms();
     $scope.filter = defaultFilter;
+    $scope.submit = function(roomName) {
+      ConfirmFactory.setCurrent({room:roomName, on:$scope.date, at:$scope.start});
+    }
   }])
 
-  
   .controller("ConflictPageController", ["$scope", "RoomsFactory", "defaultFilter",  function($scope, RoomsFactory, defaultFilter) {
-    $scope.filter = defaultFilter;
+    $scope.filter = defaultFilter
     $scope.reses = [{},{},{},{}]
   }]);
-
-
-
-
-
-
 
 
 
