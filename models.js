@@ -28,7 +28,10 @@ var Room = mongoose.model('Room', roomSchema);
 var resSchema = new Schema({
                             name: String,
                             room: {type: Schema.Types.ObjectId, ref: 'User'},
-                            time: Date
+                            date: Date,
+                            time: int,
+                            end: int,
+                            duration: Number //this is in hours aka 1hour = 1 and 2hours 30 min = 2.5
                           });
 
 var Reservation = mongoose.model('Reservation', resSchema);

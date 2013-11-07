@@ -67,6 +67,11 @@ angular.module("myApp.controllers", ['ui.calendar']).
   }])
 
   .controller("ConflictPageController", ["$scope", "RoomsFactory", "defaultFilter",  function($scope, RoomsFactory, defaultFilter) {
-    $scope.rooms = RoomsFactory.getRooms();
-    $scope.filter = defaultFilter;
+    $scope.filter = defaultFilter
+    $scope.reses = [{},{},{},{}]
   }]);
+
+
+
+
+
