@@ -1,4 +1,10 @@
-var models = require("../models.js");
+var mongoose = require('mongoose'),
+    models = require("../models.js");
+
+exports.dropDb = function(req, res){
+    mongoose.connection.db.dropDatabase();
+    res.send("Database Dropped");
+}
 
 exports.populate = function(req, res){
   models.Room.remove({}, function(err) {});
