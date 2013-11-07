@@ -7,40 +7,79 @@ exports.dropDb = function(req, res){
 }
 
 exports.populate = function(req, res){
-  var AC102 = new models.Room({name: "AC 102", 
-                            BlackoutCapability: true,
-                            HandicapAccessability: true,
-                            Softseating: true,
-                            TablesChairs: true,
-                            Blackboards: true,
-                            ProjectionScreen: true,
-                            LCDProjector: true,
-                            TileFlooring: true,
-                            DoNotRearrange: true});
-    AC102.save(function(err){
-        if (err) return ("error saving AC102", err);
-        console.log('AC102 saved');
-    });
-    var AC109 = new models.Room({name: "AC 109", 
-                            BlackoutCapability: false,
-                            HandicapAccessability: true,
-                            Softseating: false,
-                            TablesChairs: true,
-                            Whiteboards: false,
-                            Blackboards: true,
-                            ProjectionScreen: true,
-                            LCDProjector: true,
-                            CarpetFlooring: false,
-                            TileFlooring: true,
-                            Multimedia: false,
-                            Benches: false,
-                            Podium: false,
-                            TieredSeating: false,
-                            DoNotRearrange: true});
-    AC109.save(function(err){
-        if (err) return ("error saving AC109", err);
-        console.log('AC109 saved');
-    });
+  models.Room.remove({}, function(err) {});
+  for (var i =0; i < 10; i++) {
+    var AC109 = new models.Room({name: "AC 10" + i.toString(),
+                              building: "AC",
+                              capacity: i*4,
+                              BlackoutCapability: false,
+                              HandicapAccessability: false,
+                              Softseating: false,
+                              TablesChairs: true,
+                              Whiteboards: false,
+                              Blackboards: true,
+                              ProjectionScreen: true,
+                              LCDProjector: true,
+                              CarpetFlooring: false,
+                              TileFlooring: true,
+                              Multimedia: false,
+                              Benches: i%4,
+                              Podium: false,
+                              TieredSeating: i%2,
+                              DoNotRearrange: true});
+      AC109.save(function(err){
+          if (err) return ("error saving AC109", err);
+          console.log(i.toString() + ' saved');
+      });
+  }
+  for (var i =0; i < 10; i++) {
+    var AC109 = new models.Room({name: "CC 10" + i.toString(),
+                              building: "CC",
+                              capacity: i*4,
+                              BlackoutCapability: false,
+                              HandicapAccessability: false,
+                              Softseating: false,
+                              TablesChairs: true,
+                              Whiteboards: false,
+                              Blackboards: true,
+                              ProjectionScreen: true,
+                              LCDProjector: true,
+                              CarpetFlooring: false,
+                              TileFlooring: true,
+                              Multimedia: false,
+                              Benches: i%4,
+                              Podium: false,
+                              TieredSeating: i%2,
+                              DoNotRearrange: true});
+      AC109.save(function(err){
+          if (err) return ("error saving AC109", err);
+          console.log(i.toString() + ' saved');
+      });
+  }
+  for (var i =0; i < 10; i++) {
+    var AC109 = new models.Room({name: "MH 10" + i.toString(),
+                              building: "MH",
+                              capacity: i*4,
+                              BlackoutCapability: false,
+                              HandicapAccessability: false,
+                              Softseating: false,
+                              TablesChairs: true,
+                              Whiteboards: false,
+                              Blackboards: true,
+                              ProjectionScreen: true,
+                              LCDProjector: true,
+                              CarpetFlooring: false,
+                              TileFlooring: true,
+                              Multimedia: false,
+                              Benches: i%4,
+                              Podium: false,
+                              TieredSeating: i%2,
+                              DoNotRearrange: true});
+      AC109.save(function(err){
+          if (err) return ("error saving AC109", err);
+          console.log(i.toString() + ' saved');
+      });
+  }
 
-  res.send("Database Populated");  
+  res.send("Database Populated");
 };

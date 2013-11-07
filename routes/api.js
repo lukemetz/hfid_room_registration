@@ -1,6 +1,7 @@
 /*
  * Serve JSON to our AngularJS client
  */
+var models = require("../models.js");
 
 exports.name = function (req, res) {
   res.json({
@@ -9,12 +10,9 @@ exports.name = function (req, res) {
 };
 
 exports.rooms = function(req, res) {
-  res.json([
-      {
-        room_name: "AC 102",
-        room_id: 1,
-      }
-      ]);
+  var rooms = models.Room.find({}, function(err, models) {
+    res.json(models);
+  });
 };
 
 exports.reservations = function(req, res) {
