@@ -72,7 +72,6 @@ angular.module('myApp.services', [])
       {name:"Microsoft Tech Talk", date:"13/12/13", start:"7:00PM", end:"8:00PM", location:"AC 107"}
     ];
     UserFactory.addReservation = function(reservation) {
-      console.log("This getting called?");
       UserFactory.reservations.push(reservation);
     }
     return UserFactory;
