@@ -5,6 +5,7 @@ exports.populate = function(req, res){
   for (var i =0; i < 10; i++) {
     var AC109 = new models.Room({name: "AC 10" + i.toString(),
                               building: "AC",
+                              capacity: i*4,
                               BlackoutCapability: false,
                               HandicapAccessability: false,
                               Softseating: false,
@@ -28,6 +29,7 @@ exports.populate = function(req, res){
   for (var i =0; i < 10; i++) {
     var AC109 = new models.Room({name: "CC 10" + i.toString(),
                               building: "CC",
+                              capacity: i*4,
                               BlackoutCapability: false,
                               HandicapAccessability: false,
                               Softseating: false,
@@ -51,6 +53,7 @@ exports.populate = function(req, res){
   for (var i =0; i < 10; i++) {
     var AC109 = new models.Room({name: "MH 10" + i.toString(),
                               building: "MH",
+                              capacity: i*4,
                               BlackoutCapability: false,
                               HandicapAccessability: false,
                               Softseating: false,

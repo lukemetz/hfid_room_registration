@@ -43,6 +43,10 @@ angular.module('myApp.services', [])
         Podium: false,
         TieredSeating: false,
         DoNotRearrange: false
+      },
+      capacity: {
+        min: "",
+        max: ""
       }
   })
     .factory("ConfirmFactory", function() {

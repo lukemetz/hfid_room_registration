@@ -76,10 +76,12 @@
           span.custom.checkbox
           | CC
         h5 Capacity
-        label(for="capacity")
-          input(type="checkbox")#capacity
-          span.custom.checkbox
-          | Should these be checkbox?
+        label(for="capacity-min").large-6.columns
+          | Min
+          input(type="text", ng-model="filter.capacity.min")#capacity-min
+        label(for="capacity-max").large-6.columns
+          | Max
+          input(type="text", ng-model="filter.capacity.max")#capacity-max
         h5 Features
         span(ng-repeat="(name, value) in filter.features")
           label(for="{{name}}")

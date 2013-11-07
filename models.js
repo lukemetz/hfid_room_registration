@@ -4,6 +4,8 @@ var mongoose = require('mongoose')
 var roomSchema = new Schema({
                             name: {type: String, unique: true},
                             building: String,
+                            capacity: Number,
+                            //Features
                             BlackoutCapability: Boolean,
                             HandicapAccessability: Boolean,
                             Softseating: Boolean,

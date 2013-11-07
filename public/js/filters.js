@@ -25,6 +25,11 @@ angular.module('myApp.filters', []).
           }
         })
 
+        if (room.capacity < parseInt(filter.capacity.min) ||
+            room.capacity > parseInt(filter.capacity.max) ) {
+          shouldAdd = false;
+        }
+
         if (shouldAdd) {
           filtered.push(room);
         }
