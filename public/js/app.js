@@ -2,6 +2,7 @@
 
 
 // Declare app level module which depends on filters, and services
+
 angular.module('myApp', [
     'ngRoute',
     'myApp.filters',
@@ -17,3 +18,4 @@ angular.module('myApp', [
     $routeProvider.when('/roomSelect', {templateUrl: 'partial/roomselect', controller:"RoomSelectController"});
     $routeProvider.otherwise({redirectTo: '/home'});
   }])
+ 
