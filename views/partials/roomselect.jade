@@ -102,7 +102,7 @@
               th
                 a(href="javascript:void(0);") 
           tbody
-            tr(ng-repeat="room in rooms | orderBy:predicate:reverse | filterRooms:filter:{date:date, start:start, durration:durration}")
+            tr(ng-repeat="room in rooms | orderBy:predicate:reverse | filterRooms:filter:{date:date, start:start, durration:durration, recurring:recurring}")
               td {{room.name}}
               td {{room.building}}
               td {{room.capacity}}

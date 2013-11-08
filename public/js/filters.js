@@ -72,6 +72,12 @@ angular.module('myApp.filters', []).
           }
         }
 
+        if (reservation.start && reservation.durration && reservation.date && reservation.recurring) {
+          if (index % 2 !== 0) {
+            shouldAdd = false;
+          }
+        }
+
         if (shouldAdd) {
           filtered.push(room);
         }
