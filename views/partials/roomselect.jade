@@ -57,7 +57,6 @@
                 input(type="checkbox")#sun
 
 
-
   .row
     div.large-4.columns
       .panel
@@ -90,6 +89,9 @@
 
     .large-8.columns
       .panel
+        div
+          span Search:
+          input(type="text", ng-model="search", placeholder="search")
         table(width="100%")
           thead
             tr
@@ -102,7 +104,7 @@
               th
                 a(href="javascript:void(0);") 
           tbody
-            tr(ng-repeat="room in rooms | orderBy:predicate:reverse | filterRooms:filter:{date:date, start:start, durration:durration, recurring:recurring}")
+            tr(ng-repeat="room in rooms | orderBy:predicate:reverse | filter:search | filterRooms:filter:{date:date, start:start, durration:durration, recurring:recurring}")
               td {{room.name}}
               td {{room.building}}
               td {{room.capacity}}
