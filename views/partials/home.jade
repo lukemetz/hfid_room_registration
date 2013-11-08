@@ -21,6 +21,8 @@
               a.button.small(href="javascript:void(0);", ng-click="cancel($index)") Cancel
         .alert-box.success(ng-if="alertOpen") Your room request has been submitted for approval. Expect an email with a confirmation.
           a.close( ng-click="closeAlert()") x
+        div(ng-if="!reservations.length")
+          h5 You currently have no reservations.
     .columns.small-5.columns
       .panel
         h3 Upcoming Events
