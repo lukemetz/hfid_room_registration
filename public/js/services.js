@@ -75,5 +75,23 @@ angular.module('myApp.services', [])
       UserFactory.reservations.push(reservation);
     }
     return UserFactory;
-  });
+  })
+  .factory("ReservationFactory", ["$http", function($http) {
+    var ReservationsFactory = {};
+    ReservationsFactory.getReservations = function() {
+      if (ReservationsFactory.reservations !== undefined) {
+        return ReservationsFactory.reservations;
+      }
+      var reservations = []
+      $http({method:"GET", url: "/api/reservations"})
+      .success(function(data, status, headers, config) {
+        angular.forEach(data, function(reservation) {
+          reservations.push(reservation);
+        })
+      });
+      ReservationsFactory.reservations = reservations;
+      return reservations;
+    }
+    return ReservationsFactory;
+  }])
 

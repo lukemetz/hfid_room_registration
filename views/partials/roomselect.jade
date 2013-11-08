@@ -8,7 +8,7 @@
             div.large-2.columns
               label(for="date-input").right.inline Date
             div.large-2.columns
-              input(type="text", placeholder="Date", ng-model="date")#date-input
+              input(type="text", ui-date, ng-model="date")#date-input
             div.large-2.columns
               label(for="date-input").right.inline Start Time
             div.large-2.columns
@@ -16,7 +16,7 @@
             div.large-2.columns
               label(for="date-input").right.inline Duration
             div.large-2.columns
-              input(type="text", placeholder="Duration")#duration-input
+              input(type="text", placeholder="Duration", ng-model="durration")#duration-input
 
           .row
             div.large-2.columns
@@ -102,7 +102,7 @@
               th
                 a(href="javascript:void(0);") 
           tbody
-            tr(ng-repeat="room in rooms | orderBy:predicate:reverse | filterRooms:filter")
+            tr(ng-repeat="room in rooms | orderBy:predicate:reverse | filterRooms:filter:{date:date, start:start, durration:durration}")
               td {{room.name}}
               td {{room.building}}
               td {{room.capacity}}
