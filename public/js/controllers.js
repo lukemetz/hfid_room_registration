@@ -3,15 +3,8 @@
 /* Controllers */
 
 angular.module("myApp.controllers", ['ui.calendar']).
-  controller("AppCtrl", ["$scope", "$http", function($scope, $http) {
-  $http({method: 'GET', url: '/api/name'}).
-  success(function(data, status, headers, config) {
-    $scope.name = data.name;
-  }).
-  error(function(data, status, headers, config) {
-    $scope.name = 'Error!'
-  });
-
+  controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFactory, $http) {
+    $scope.name = UserFactory.name;
   }])
   .controller("HomeController", ["$scope", "UserFactory", function($scope, UserFactory) {
     $scope.room = "any";
@@ -62,6 +55,8 @@ angular.module("myApp.controllers", ['ui.calendar']).
     $scope.roomName = ConfirmFactory.getCurrent().room
     $scope.date = ConfirmFactory.getCurrent().on
     $scope.time = ConfirmFactory.getCurrent().at
+    $scope.name = UserFactory.name;
+    $scope.email = UserFactory.email;
 
     $scope.backButton = function() {
       $location.path('/#/roomSelect');

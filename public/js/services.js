@@ -71,6 +71,9 @@ angular.module('myApp.services', [])
       {name:"Career Fair", date:"12/12/13", start:"11:00AM", end:"10:00AM", location:"Mez"},
       {name:"Microsoft Tech Talk", date:"13/12/13", start:"7:00PM", end:"8:00PM", location:"AC 107"}
     ];
+    UserFactory.name = "Sam";
+    UserFactory.email = "sam@someEmail.com"
+
     UserFactory.addReservation = function(reservation) {
       UserFactory.reservations.push(reservation);
     }
