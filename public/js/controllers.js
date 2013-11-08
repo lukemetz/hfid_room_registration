@@ -10,6 +10,11 @@ angular.module("myApp.controllers", ['ui.calendar']).
     $scope.room = "any";
     $scope.currentEvents = UserFactory.currentEvents;
     $scope.reservations = UserFactory.reservations;
+    $scope.alertOpen = UserFactory.alertOpen;
+    //UserFactory.alertOpen = false;
+    $scope.closeAlert = function() {
+      $scope.alertOpen = false;
+    }
     $scope.cancel = function(index) {
       if (confirm("Are you sure")) { //Really, I used system popups....
         $scope.reservations.splice(index,1);
@@ -65,6 +70,7 @@ angular.module("myApp.controllers", ['ui.calendar']).
     $scope.confirmButton = function() {
       $location.path('/');
       UserFactory.addReservation({name:$scope.roomName, date: $scope.date, time: $scope.time});
+      UserFactory.alertOpen = true;
     }
   }])
 

@@ -74,6 +74,7 @@ angular.module('myApp.services', [])
     UserFactory.name = "Sam";
     UserFactory.email = "sam@someEmail.com"
 
+    UserFactory.alertOpen = false;
     UserFactory.addReservation = function(reservation) {
       UserFactory.reservations.push(reservation);
     }

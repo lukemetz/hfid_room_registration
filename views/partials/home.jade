@@ -19,6 +19,8 @@
             td {{reservation.time}}
             td
               a.button.small(href="javascript:void(0);", ng-click="cancel($index)") Cancel
+        .alert-box.success(ng-if="alertOpen") Your room request has been submitted for approval. Expect an email with a confirmation.
+          a.close( ng-click="closeAlert()") x
     .columns.small-5.columns
       .panel
         h3 Upcoming Events
