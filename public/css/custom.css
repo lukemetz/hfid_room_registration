@@ -1,8 +1,8 @@
-.accept {
+.accept-true {
   background-color: #D3F2B6;
 }
 
 
-.reject {
+.accept-false{
   background-color: #F2AEAE;
 }
