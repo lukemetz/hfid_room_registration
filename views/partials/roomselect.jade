@@ -104,12 +104,14 @@
               th
                 a(href="javascript:void(0);") 
           tbody
-            tr(ng-repeat="room in rooms | orderBy:predicate:reverse | filter:search | filterRooms:filter:{date:date, start:start, durration:durration, recurring:recurring}")
+            tr(ng-repeat="room in filtered_rooms = (rooms | orderBy:predicate:reverse | filter:search | filterRooms:filter:{date:date, start:start, durration:durration, recurring:recurring})")
               td {{room.name}}
               td {{room.building}}
               td {{room.capacity}}
               td
                 a(href="/#/confirm", ng-click="submit(room.name)").button.small Select Room
+        div(ng-if="!filtered_rooms.length")
+          h5 There are no rooms that meet your current search. Try broadening your filters and search.
     //{{ rooms | json }}
     .large-2.right
       a(href="#").button.right Next
