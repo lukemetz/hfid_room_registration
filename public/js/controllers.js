@@ -25,8 +25,10 @@ angular.module("myApp.controllers", ['ui.calendar']).
   }])
   .controller("CalController", ["$scope", function($scope) {
     /* config object */
+    $scope.datePicker = {
+      dateFormat: 'mm/dd/yy'
+    }
     $scope.dateChange = function(dateString) {
-      console.log(dateString);
       if(dateString !== 0) {
         var month = parseInt(dateString.substring(0,2));
         var day = parseInt(dateString.substring(3,5));

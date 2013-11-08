@@ -12,7 +12,7 @@
             div.small-2.columns
               label(for="date-input").right.inline Date
             div.small-3.columns
-              input(ui-date ui-date-format="MM-dd-yy" placeholder="Date" ng-model="date" ng-blur="dateChange(date)")#date-input
+              input(ui-date="datePicker" ui-date-format="mm-dd-yy" type="text" placeholder="Date" ng-model="date" ng-change="dateChange(date)")#date-input
             div.small-1.columns
               input(type="checkbox", ng-model="recurring", ng-init="recurring=false")#recurring-input
             div.small-1.columns
