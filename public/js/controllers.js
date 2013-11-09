@@ -52,6 +52,9 @@ angular.module("myApp.controllers", ['ui.calendar']).
         },
       }
     };
+    $scope.forceFront = function() {
+      $("#ui-datepicker-div").zIndex(10);
+    }
     /* event sources array*/
     $scope.eventSources = [$scope.events];
   }])
