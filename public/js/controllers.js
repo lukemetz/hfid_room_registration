@@ -35,6 +35,8 @@ angular.module("myApp.controllers", ['ui.calendar']).
       dateFormat: 'mm/dd/yy'
     }
     $scope.room = UserFactory.selectedRoom
+
+    $scope.recurringEnabled = true;
     $scope.dateChange = function(dateString) {
       if(dateString !== 0) {
         var month = parseInt(dateString.substring(0,2));
@@ -94,9 +96,11 @@ angular.module("myApp.controllers", ['ui.calendar']).
       ConfirmFactory.setCurrent({room:roomName, on:$scope.date, at:$scope.start});
       $location.path('/#/confirm');
     }
+    $scope.recurringEnabled = true;
   }])
 
-  .controller("ConflictPageController", ["$scope", "RoomsFactory", "defaultFilter",  function($scope, RoomsFactory, defaultFilter) {
+  .controller("ConflictPageController", ["$scope", "RoomsFactory", "defaultFilter", "$location",
+      function($scope, RoomsFactory, defaultFilter, $location) {
     $scope.filter = defaultFilter
     $scope.rooms = RoomsFactory.getRooms();
     $scope.reses = [{name: "Meeting for HFID",
@@ -142,21 +146,36 @@ angular.module("myApp.controllers", ['ui.calendar']).
       })
       return count;
     }
-    $scope.changeRoom = function(indx) {
+    $scope.changeRoom = function(idx) {
       $scope.view = "roomselect"
+      $scope.start = $scope.reses[idx].time;
+      $scope.durration = $scope.reses[idx].end - $scope.reses[idx].time;
+      $scope.date= $scope.reses[idx].date;
+      $scope.selectedConflict = idx;
+      $scope.submit = $scope.roomSelectSubmit;
     }
-    $scope.changeTime = function(indx) {
+    $scope.changeTime = function(idx) {
       $scope.view = "calendar"
+      $scope.selectedConflict = idx;
+      $scope.submit = $scope.calendarSelectSubmit;
     }
 
-    $scope.submit = function(roomName) {
+    $scope.roomSelectSubmit = function(roomName) {
       $scope.reses[$scope.selectedConflict].conflicted = false;
+      $scope.reses[$scope.selectedConflict].date = $scope.date;
+      $scope.reses[$scope.selectedConflict].room = roomName;
+      $scope.view = "";
+    }
+
+    $scope.calendarSelectSubmit = function(roomName) {
     }
 
     $scope.skipFunction = function(conflictedId) {
       $scope.reses[conflictedId].conflicted = false;
       $scope.reses[conflictedId].ignore = true;
     }
+
+    $scope.recurringEnabled = false;
   }]);
 
 

@@ -25,9 +25,9 @@
           a.button(ng-href="/#/confirm" ng-click="Confirm") Proceed
         div(ng-switch-default)
           h5 resolve your conflicts or
-          a.button(ng-href="/#/confirm" ng-click="Confirm") Skip Conflicts
-  div(ng-switch="view")
-    div(ng-switch-when="roomselect")
+          a.button(ng-href="/#/confirm" ng-click="Confirm") Skip all Conflicts
+  div(ng-switch="view" )
+    div(ng-switch-when="roomselect")#changeContainer
       div(ng-include="'/partial/roomselect'")
-    div(ng-switch-when="calendar")
+    div(ng-switch-when="calendar")#changeContainer
       div(ng-include="'/partial/calendar'")

@@ -18,7 +18,7 @@
             div.large-2.columns
               input(type="text", placeholder="Duration", ng-model="durration")#duration-input
 
-          .row
+          .row(ng-if="recurringEnabled")
             div.large-2.columns
               label(for="recurring-input").right Recurring?
             div.large-2.columns
