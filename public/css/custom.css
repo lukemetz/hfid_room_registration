@@ -2,8 +2,13 @@
   background-color: #D3F2B6;
 }
 
-
 .accept-false{
   background-color: #F2AEAE;
 }
+
+.ignore-true {
+  background-color: #808080;
+  text-decoration:line-through;
+}
+
 

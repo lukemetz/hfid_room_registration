@@ -92,11 +92,13 @@ angular.module("myApp.controllers", ['ui.calendar']).
     $scope.filter = defaultFilter;
     $scope.submit = function(roomName) {
       ConfirmFactory.setCurrent({room:roomName, on:$scope.date, at:$scope.start});
+      $location.path('/#/confirm');
     }
   }])
 
   .controller("ConflictPageController", ["$scope", "RoomsFactory", "defaultFilter",  function($scope, RoomsFactory, defaultFilter) {
     $scope.filter = defaultFilter
+    $scope.rooms = RoomsFactory.getRooms();
     $scope.reses = [{name: "Meeting for HFID",
                       room: "AC 109",
                       date: "11/12",
@@ -129,11 +131,31 @@ angular.module("myApp.controllers", ['ui.calendar']).
                       duration: 2,
                       _id: "fourth",
                       conflicted: false}];
+    $scope.selectedConflict = 1;
 
+    $scope.countConflicted = function(reses) {
+      var count = 0;
+      angular.forEach(reses, function(res) {
+        if (true == res.conflicted) {
+          count += 1;
+        }
+      })
+      return count;
+    }
+    $scope.changeRoom = function(indx) {
+      $scope.view = "roomselect"
+    }
+    $scope.changeTime = function(indx) {
+      $scope.view = "calendar"
+    }
+
+    $scope.submit = function(roomName) {
+      $scope.reses[$scope.selectedConflict].conflicted = false;
+    }
 
     $scope.skipFunction = function(conflictedId) {
-      console.log(conflictedId);
-      console.log("KEELY");
+      $scope.reses[conflictedId].conflicted = false;
+      $scope.reses[conflictedId].ignore = true;
     }
   }]);
 
