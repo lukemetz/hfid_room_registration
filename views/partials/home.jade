@@ -9,7 +9,7 @@
           span(ng-switch-when="any")
             a(href="/#/roomSelect").button.small Submit
           span(ng-switch-default)
-            a(href="/#/calendar").button.small Submit
+            a(href="/#/calendar", ng-click="forwardRoom()").button.small Submit
       .panel
         h3 Your Current Events
         table(style="width:100%;")

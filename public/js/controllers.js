@@ -20,12 +20,17 @@ angular.module("myApp.controllers", ['ui.calendar']).
         $scope.reservations.splice(index,1);
       }
     }
+
+    $scope.forwardRoom = function() {
+      UserFactory.selectedRoom = $scope.room
+    }
   }])
-  .controller("CalController", ["$scope", function($scope) {
+  .controller("CalController", ["$scope", "UserFactory", function($scope, UserFactory) {
     /* config object */
     $scope.datePicker = {
       dateFormat: 'mm/dd/yy'
     }
+    $scope.room = UserFactory.selectedRoom
     $scope.dateChange = function(dateString) {
       if(dateString !== 0) {
         var month = parseInt(dateString.substring(0,2));
