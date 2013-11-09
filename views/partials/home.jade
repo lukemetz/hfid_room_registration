@@ -5,7 +5,7 @@
       .panel
         h3 Make a Room Reservation
         | Room Name: 
-        input(ng-model="room") 
+        input(ng-model="room", typeahead='name for name in states | filter:selected')) 
         span(ng-switch="room")
           span(ng-switch-when="any")
             a(href="/#/roomSelect").button.small Submit
