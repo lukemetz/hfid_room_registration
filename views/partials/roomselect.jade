@@ -90,8 +90,11 @@
     .large-8.columns
       .panel
         div
-          span Search:
-          input(type="text", ng-model="search", placeholder="search")
+          h5 Avalible Rooms:
+          .row
+            .large-2.columns Search:
+            .large-10.columns
+              input(type="text", ng-model="search", placeholder="search")
         table(width="100%")
           thead
             tr
