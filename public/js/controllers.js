@@ -168,12 +168,12 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     }
   }
   $scope.submit = function() {
-    ConfirmFactory.setCurrent({room:$scope.room, on:$scope.startTime.toLocaleDateString(), at:$scope.startTime.toLocaleTgiimeString()});
+    ConfirmFactory.setCurrent({room:$scope.room, on:$scope.startTime.toLocaleDateString(), at:$scope.startTime.toLocaleTimeString()});
     if ($scope.recurring) {
       ConfirmFactory.recurringCurrent = [];
       var date = new Date($scope.startDate.toString())
       while(date < $scope.endDate){
-        if($scope.recurDays[date.getDay()]){
+        if(date.getDay() == $scope.startDate.getDay()){
           date.setDate(date.getDate() + 7);
           var ev = {room:$scope.room, date: date.toLocaleDateString(), start:$scope.startTime.toLocaleTimeString(), end: $scope.endTime.toLocaleTimeString()};
           ConfirmFactory.recurringCurrent.push(ev);
@@ -189,8 +189,19 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
 .controller("ConfirmController", ["$scope", "ConfirmFactory","$location", "UserFactory",
   function($scope, ConfirmFactory, $location, UserFactory) {
     $scope.reservations = ConfirmFactory.recurringCurrent;
+    console.log($scope.reservations);
+    angular.forEach($scope.reservations, function(res) {
+      if (typeof $scope.date === "object") {
+        var d = $scope.date;
+        $scope.date = d.getDate() + "/" +  d.getMonth() + "/" + d.getFullYear();
+      }
+    });
     $scope.roomName = ConfirmFactory.getCurrent().room
     $scope.date = ConfirmFactory.getCurrent().on
+    if (typeof $scope.date === "object") {
+      var d = $scope.date;
+      $scope.date = d.getDate() + "/" +  d.getMonth() + "/" + d.getFullYear();
+    }
     $scope.time = ConfirmFactory.getCurrent().at
     $scope.name = UserFactory.name;
     $scope.email = UserFactory.email;
@@ -200,9 +211,17 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     }
 
     $scope.confirmButton = function() {
-      $location.path('#/home');
-      UserFactory.addReservation({name:$scope.roomName, date: $scope.date, time: $scope.time});
+      if ($scope.reservations) {
+        var length = $scope.reservations.length;
+        var date = "(" + $scope.reservations[0].date + " - " + $scope.reservations[length-1].date + ")";
+        UserFactory.addReservation({name:$scope.eventName, room: $scope.reservations[0].room, date: date, time: $scope.time});
+      } else {
+        UserFactory.addReservation({name:$scope.eventName, room:$scope.roomName, date: $scope.date, time: $scope.time});
+      }
       UserFactory.alertOpen = true;
+      ConfirmFactory.recurringCurrent = 0;
+      ConfirmFactory.current = {};
+      $location.path('#/home');
     }
   }])
 
@@ -245,6 +264,20 @@ $scope.update = function(recurring) {
   $scope.recurring = !recurring;
 }
 $scope.recurringEnabled = true;
+$scope.getFeatures = function(room) {
+  var features = [];
+  if (room.Whiteboards)
+    features.push("whiteboards");
+  if (room.Podium)
+    features.push("podium");
+  if (room.LCDProjector)
+    features.push("projector");
+  var str = ""
+  angular.forEach(features, function(feature) {
+    str += feature + ", "
+  })
+  return str
+}
 }])
 
 .controller("ConflictPageController", ["$scope", "RoomsFactory", "defaultFilter", "$location", "ConfirmFactory",
@@ -254,7 +287,7 @@ $scope.recurringEnabled = true;
     $scope.reses = [{name: "Meeting for HFID",
     room: "AC 109",
     date: "11/12",
-    time: 15,
+    start: 15,
     end: 17,
     duration: 2,
     conflicted: false,
@@ -262,7 +295,7 @@ $scope.recurringEnabled = true;
     {name: "Meeting for HFID",
     room: "AC 109",
     date: "11/19",
-    time: 15,
+    start: 15,
     end: 17,
     duration: 2,
     conflicted: true,
@@ -270,7 +303,7 @@ $scope.recurringEnabled = true;
     {name: "Meeting for HFID",
     room: "AC 109",
     date: "11/26",
-    time: 15,
+    start: 15,
     end: 17,
     duration: 2,
     conflicted: false,
@@ -278,7 +311,7 @@ $scope.recurringEnabled = true;
     {name: "Meeting for HFID",
     room: "AC 109",
     date: "12/3",
-    time: 15,
+    start: 15,
     end: 17,
     duration: 2,
     _id: "fourth",
@@ -286,7 +319,7 @@ $scope.recurringEnabled = true;
     $scope.reses = [{name: "Meeting for HFID",
     room: "AC 109",
     date: "11/12",
-    time: 15,
+    start: 15,
     end: 17,
     duration: 2,
     conflicted: false,
@@ -294,7 +327,7 @@ $scope.recurringEnabled = true;
     {name: "Meeting for HFID",
     room: "AC 109",
     date: "11/19",
-    time: 15,
+    start: 15,
     end: 17,
     duration: 2,
     conflicted: true,
@@ -302,7 +335,7 @@ $scope.recurringEnabled = true;
     {name: "Meeting for HFID",
     room: "AC 109",
     date: "11/26",
-    time: 15,
+    start: 15,
     end: 17,
     duration: 2,
     conflicted: false,
@@ -310,7 +343,7 @@ $scope.recurringEnabled = true;
     {name: "Meeting for HFID",
     room: "AC 109",
     date: "12/3",
-    time: 15,
+    start: 15,
     end: 17,
     duration: 2,
     _id: "fourth",
@@ -442,7 +475,7 @@ $scope.recurringEnabled = true;
         $scope.uiConfig.calendar.columnFormat = {week: "ddd"}
         $scope.uiConfig.calendar.year = 3000;
         $scope.uiConfig.calendar.month = 0;
-        $scope.uiConfig.calendar.date = 5;      
+        $scope.uiConfig.calendar.date = 5;
       }
       if(!recurring){
         $scope.uiConfig.calendar.allDaySlot = true;
@@ -450,7 +483,7 @@ $scope.recurringEnabled = true;
         $scope.uiConfig.calendar.columnFormat = {week: "ddd M/d"};
         $scope.uiConfig.calendar.year = y;
         $scope.uiConfig.calendar.month = m;
-        $scope.uiConfig.calendar.date = d;      
+        $scope.uiConfig.calendar.date = d;
       }
     }
     $scope.renderRecur = function(startDateString, endDateString){

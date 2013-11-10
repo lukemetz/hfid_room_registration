@@ -13,11 +13,18 @@
             a(href="/#/calendar", ng-click="forwardRoom()").button.small Submit
       .panel
         h3 Your Reservations
-        table(style="width:100%;")
+
+        table(style="width:100%;", ng-if = "reservations.length")
+          tr
+            th Event Name
+            th Room
+            th Date
+            th
+
           tr(ng-repeat="reservation in reservations")
             td {{reservation.name}}
+            td {{reservation.room}}
             td {{reservation.date}}
-            td {{reservation.time}}
             td
               a.button.small(href="javascript:void(0);", ng-click="cancel($index)") Cancel
         .alert-box.success(ng-if="alertOpen") Your room request has been submitted for approval. Expect an email with a confirmation.

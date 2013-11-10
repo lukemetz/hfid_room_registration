@@ -63,8 +63,6 @@ angular.module('myApp.services', [])
   .factory("UserFactory", function() {
     var UserFactory = {};
     UserFactory.reservations = [
-      {name:"Some reservation", date:"date", time:"time"},
-      {name:"reservation", date:"date", time:"time"}
     ];
     UserFactory.currentEvents = [
       {name:"OFAC", date:"10/12/13", start:"9:00AM", end:"10:00AM", location:"lotD"},
