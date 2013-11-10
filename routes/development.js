@@ -81,7 +81,7 @@ exports.populate = function(req, res){
       });
   }
 
-var res = new models.Reservation({
+var reser = new models.Reservation({
                             name: "HFID Meeting",
                             room: "AC 109",
                             // date: ,
@@ -89,7 +89,7 @@ var res = new models.Reservation({
                             end: 12,
                             duration: 2
                             });
-      res.save(function(err){
+      reser.save(function(err){
           if (err) return ("error saving AC109", err);
           console.log(i.toString() + ' saved');
       });

@@ -22,10 +22,10 @@
       div(ng-switch="countConflicted(reses)")
         div(ng-switch-when="0")
           h5 Your conflicts have been settled.
-          a.button(ng-href="/#/confirm" ng-click="Confirm") Proceed
+          a.button(ng-href="/#/confirm" ng-click="confirm()") Proceed
         div(ng-switch-default)
           h5 resolve your conflicts or
-          a.button(ng-href="/#/confirm" ng-click="Confirm") Skip all Conflicts
+          a.button(ng-href="/#/confirm" ng-click="confirm()") Skip all Conflicts
   div(ng-switch="view" )
     div(ng-switch-when="roomselect")#changeContainer
       div(ng-include="'/partial/roomselect'")
