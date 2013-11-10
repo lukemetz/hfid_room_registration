@@ -1,20 +1,33 @@
 .container
   .row
     .center
-      h2 1 of the Times is Conflicted
+      h2 {{countConflicted(reses)}} of the Times is Conflicted
 
   .row
-    .panel.columns.small-3(ng-repeat="res in reses",class="accept-{{!res.conflicted}}", id="{{res._id}}")
-      .row 
+    .panel.columns.small-2(ng-repeat="res in reses",class="accept-{{!res.conflicted}} ignore-{{res.ignore}}", id="{{res._id}}")
+      .row
         h5 Date: {{res.date}}
-      .row 
+      .row
         h5 Room: {{res.room}}
-      .row 
+      .row
         h5 Start: {{res.time}}
-      .row 
+      .row
         h5 End: {{res.end}}
 
       .row(ng-if="res.conflicted")
-        .button.small Change Room
-        .button.small Change Time
+        .button.small(ng-click="changeRoom($index)") Change Room
+        .button.small(ng-click="changeTime($index)") Change Time
         .button.small.expand(ng-click="skipFunction($index)") Skip this Meeting
+    .panel.columns.small-2
+      div(ng-switch="countConflicted(reses)")
+        div(ng-switch-when="0")
+          h5 Your conflicts have been settled.
+          a.button(ng-href="/#/confirm" ng-click="Confirm") Proceed
+        div(ng-switch-default)
+          h5 resolve your conflicts or
+          a.button(ng-href="/#/confirm" ng-click="Confirm") Skip all Conflicts
+  div(ng-switch="view" )
+    div(ng-switch-when="roomselect")#changeContainer
+      div(ng-include="'/partial/roomselect'")
+    div(ng-switch-when="calendar")#changeContainer
+      div(ng-include="'/partial/calendar'")

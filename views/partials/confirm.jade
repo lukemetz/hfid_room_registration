@@ -1,8 +1,8 @@
 .container
-    .row 
-        h1 Confirmation
-    .row    
-        .large-4.columns
+    .row
+        h1 Confirm your Reservation
+    .row
+        .large-12.columns
             form
                 fieldset
                     label Event Name:
@@ -14,10 +14,31 @@
                     label.checkbox
                         input(type='checkbox')
                         |Public
-        .large-8.columns.panel
-            h3 You have reserved
-            h4 Room: {{roomName}}
-            h4 On: {{date}}
-            h4 At: {{time}}
-            a.button.btn-primary.btn-primary#backButton(type='button', href="/#/roomSelect") Back 
-            a.button.btn-primary.btn-primary#confirmButton(type='button', ng-click="confirmButton()", href="/#/") Confirm
+        .row
+          .large-12.columns.panel
+              h3 You have reserved:
+              div(ng-if="reservations")
+                .row
+                  .large-4.columns
+                    p
+                      b Room
+                  .large-4.columns
+                    p
+                      b Date
+                  .large-4.columns
+                    p
+                      b Time
+                .row(ng-repeat="res in reservations")
+                  .large-4.columns 
+                    p {{res.room}}
+                  .large-4.columns
+                    p {{res.date}}
+                  .large-4.columns
+                    p {{res.start}} - {{res.end}}
+
+              div(ng-if="!reservations")
+                h4 Room: {{roomName}}
+                h4 Date: {{date}}
+                h4 Time: {{start}}
+              a.button.btn-primary.btn-primary#backButton(type='button', href="/#/roomSelect") Back 
+              a.button.btn-primary.btn-primary#confirmButton(type='button', ng-click="confirmButton()", href="/#/home") Confirm

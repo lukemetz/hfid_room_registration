@@ -4,14 +4,15 @@
       h1 Hello {{name}}
       .panel
         h3 Make a Room Reservation
-        input(ng-model="room") 
+        | Room Name: 
+        input(ng-model="room", typeahead='name for name in states | filter:selected')) 
         span(ng-switch="room")
           span(ng-switch-when="any")
             a(href="/#/roomSelect").button.small Submit
           span(ng-switch-default)
-            a(href="/#/calendar").button.small Submit
+            a(href="/#/calendar", ng-click="forwardRoom()").button.small Submit
       .panel
-        h3 Your Current Events
+        h3 Your Reservations
         table(style="width:100%;")
           tr(ng-repeat="reservation in reservations")
             td {{reservation.name}}
@@ -25,7 +26,7 @@
           h5 You currently have no reservations.
     .columns.small-5.columns
       .panel
-        h3 Upcoming Events
+        h3 Public Events
         table(style="width:100%;")
           tr(ng-repeat="event in currentEvents")
             td {{event.name}}
