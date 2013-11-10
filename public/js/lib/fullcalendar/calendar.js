@@ -36,6 +36,18 @@ angular.module('ui.calendar', [])
     restrict: 'A',
     link: function(scope, elm, attrs) {
       var sources = scope.ngModel;
+      var options = {};
+      var getOptions = function(){
+        options = { eventSources: sources };
+        angular.extend(options, uiCalendarConfig, attrs.uiCalendar ? scope.$parent.$eval(attrs.uiCalendar) : {});
+        var options2 = {};
+        for(var o in options){
+          if(o !== 'eventSources'){
+            options2[o] = options[o];
+          }
+        }
+        return JSON.stringify(options2);
+      };
       scope.destroy = function(){
         if(attrs.calendar){
           scope.calendar = scope.$parent[attrs.calendar] =  elm.html('');
@@ -45,8 +57,7 @@ angular.module('ui.calendar', [])
       };
       scope.destroy();
       scope.init = function(){
-        var options = { eventSources: sources };
-        angular.extend(options, uiCalendarConfig, attrs.uiCalendar ? scope.$parent.$eval(attrs.uiCalendar) : {});
+        getOptions();
         scope.calendar.fullCalendar(options);
       };
       scope.init();
@@ -179,6 +190,13 @@ angular.module('ui.calendar', [])
       eventsWatcher.onChanged = function(event) {
         scope.calendar.fullCalendar('updateEvent', event);
       };
+      
+      scope.$watch(getOptions, function(newO,oldO){
+        if(newO !== oldO){
+          scope.destroy();
+          scope.init();
+        }
+      });
     }
   };
 }]);
