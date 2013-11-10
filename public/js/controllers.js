@@ -71,6 +71,7 @@ angular.module("myApp.controllers", ['ui.calendar']).
   }])
   .controller("ConfirmController", ["$scope", "ConfirmFactory","$location", "UserFactory",
       function($scope, ConfirmFactory, $location, UserFactory) {
+    $scope.reservations = ConfirmFactory.recurringCurrent;
     $scope.roomName = ConfirmFactory.getCurrent().room
     $scope.date = ConfirmFactory.getCurrent().on
     $scope.time = ConfirmFactory.getCurrent().at
@@ -82,7 +83,7 @@ angular.module("myApp.controllers", ['ui.calendar']).
     }
 
     $scope.confirmButton = function() {
-      $location.path('/');
+      $location.path('#/home');
       UserFactory.addReservation({name:$scope.roomName, date: $scope.date, time: $scope.time});
       UserFactory.alertOpen = true;
     }
@@ -92,9 +93,39 @@ angular.module("myApp.controllers", ['ui.calendar']).
       function($scope, $location, RoomsFactory, defaultFilter, ConfirmFactory) {
     $scope.rooms = RoomsFactory.getRooms();
     $scope.filter = defaultFilter;
+    $scope.recurring = false;
     $scope.submit = function(roomName) {
       ConfirmFactory.setCurrent({room:roomName, on:$scope.date, at:$scope.start});
-      $location.path('/#/confirm');
+        if ($scope.recurring) {
+          ConfirmFactory.recurringCurrent = [{name: "Meeting for HFID",
+                      room: "AC 109",
+                      date: "11/12",
+                      start: 15,
+                      end: 17
+                      },
+                    {name: "Meeting for HFID",
+                      room: "AC 109",
+                      start: "11/19",
+                      time: 15,
+                      end: 17
+                      },
+                    {name: "Meeting for HFID",
+                      room: "AC 109",
+                      start: "11/26",
+                      time: 15,
+                      end: 17
+                      },
+                    {name: "Meeting for HFID",
+                      room: "AC 109",
+                      date: "12/3",
+                      start: 15,
+                      end: 1,
+                      }];
+        }
+      $location.path('confirm');
+    }
+    $scope.update = function(recurring) {
+      $scope.recurring = !recurring;
     }
     $scope.recurringEnabled = true;
   }])

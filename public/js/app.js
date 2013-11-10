@@ -17,6 +17,6 @@ angular.module('myApp', [
     $routeProvider.when('/confirm', {templateUrl: 'partial/confirm', controller: "ConfirmController"});
     $routeProvider.when('/ConflictPage', {templateUrl: 'partial/ConflictPage', controller: "ConflictPageController"});
     $routeProvider.when('/roomSelect', {templateUrl: 'partial/roomselect', controller:"RoomSelectController"});
-    $routeProvider.otherwise({redirectTo: '/home'});
+    //$routeProvider.otherwise({redirectTo: '/home'});
   }])
 

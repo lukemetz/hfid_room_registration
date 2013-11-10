@@ -8,7 +8,10 @@
             div.large-2.columns
               label(for="date-input").right.inline Date
             div.large-2.columns
-              input(type="text", ui-date, ng-model="date")#date-input
+                //div(ng-if="!recurring")
+                //input(disabled type="text")#date-input
+                //div(ng-if="!recurring")
+                input(type="text" ui-date  ng-model="date")#date-input
             div.large-2.columns
               label(for="date-input").right.inline Start Time
             div.large-2.columns
@@ -22,17 +25,17 @@
             div.large-2.columns
               label(for="recurring-input").right Recurring?
             div.large-2.columns
-              input(type="checkbox", ng-model="recurring", ng-init="recurring=false")#recurring-input
+              input(type="checkbox", ng-click="update(recurring)", ng-model="recurring")#recurring-input
             div.large-8.columns(ng-if="!recurring")
             div(ng-if="recurring")
               .large-2.columns
-                label.right.inline Start
+                label.right.inline Start Date
               .large-2.columns
-                input(type="text")
+                input(type="text", ui-date ng-model="startDate")
               .large-2.columns
-                label.right.inline End
+                label.right.inline End Date
               .large-2.columns
-                input(type="text")
+                input(type="text", ui-date ng-model="endDate")
             .row(ng-if="recurring")
               .large-1.columns.large-offset-2
                 label(for="mon").right.inline Mon 
@@ -53,7 +56,7 @@
                 label(for="sat").right.inline Sat
                 input(type="checkbox")#sat
               .large-1.columns.large-uncentered
-                label(for="Sun").right.inline Sun
+                label(for="sun").right.inline Sun
                 input(type="checkbox")#sun
 
 
@@ -112,8 +115,7 @@
               td {{room.building}}
               td {{room.capacity}}
               td
-                a(ng-click="submit(room.name)").button.small Select Room
+                a(href="javascript:void(0);" ng-click="submit(room.name)").button.small Select Room
         div(ng-if="!filtered_rooms.length")
           h5 There are no rooms that meet your current search. Try broadening your filters and search.
-      {{submit | json}}
 
