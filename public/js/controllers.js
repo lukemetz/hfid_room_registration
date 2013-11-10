@@ -104,7 +104,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
       $scope.uiConfig.calendar.columnFormat = {week: "ddd"}
       $scope.uiConfig.calendar.year = 3000;
       $scope.uiConfig.calendar.month = 0;
-      $scope.uiConfig.calendar.date = 5;      
+      $scope.uiConfig.calendar.date = 5;
     }
     if(!recurring){
       $scope.uiConfig.calendar.allDaySlot = true;
@@ -112,7 +112,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
       $scope.uiConfig.calendar.columnFormat = {week: "ddd M/d"};
       $scope.uiConfig.calendar.year = y;
       $scope.uiConfig.calendar.month = m;
-      $scope.uiConfig.calendar.date = d;      
+      $scope.uiConfig.calendar.date = d;
     }
   }
   $scope.renderRecur = function(startDateString, endDateString){
