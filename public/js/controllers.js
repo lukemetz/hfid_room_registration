@@ -105,14 +105,14 @@ angular.module("myApp.controllers", ['ui.calendar']).
                       },
                     {name: "Meeting for HFID",
                       room: "AC 109",
-                      start: "11/19",
-                      time: 15,
+                      date: "11/19",
+                      start: 15,
                       end: 17
                       },
                     {name: "Meeting for HFID",
                       room: "AC 109",
-                      start: "11/26",
-                      time: 15,
+                      date: "11/26",
+                      start: 15,
                       end: 17
                       },
                     {name: "Meeting for HFID",
