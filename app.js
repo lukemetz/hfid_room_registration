@@ -4,7 +4,7 @@
  */
 
 var express = require('express'),
-  //mongoose = require('mongoose'),
+  mongoose = require('mongoose'),
   routes = require('./routes'),
   dev = require('./routes/development')
   api = require('./routes/api');
@@ -14,7 +14,7 @@ var app = module.exports = express();
 // Configuration
 
 app.configure(function(){
-  //mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/roomRes');
+  mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/roomRes');
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.bodyParser());
