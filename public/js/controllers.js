@@ -33,6 +33,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
  function($scope, $location, UserFactory, defaultFilter, ConfirmFactory) {
   $scope.recurDays = [0, 0, 0, 0, 0, 0, 0]
   $scope.room = UserFactory.selectedRoom
+  $scope.conflicted = false;
 
   var curDate = new Date();
   var d = curDate.getDate();
@@ -77,6 +78,14 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
       select: function(startDate, endDate, allDay, jsEvent, view) {
         $scope.startTime = startDate;
         $scope.endTime = endDate;
+        $scope.conflicted = false;
+        for(var k = 0; k < $scope.overlay.length; k++){
+          if($scope.overlay[k].start <= startDate && $scope.overlay[k].end >= startDate)
+            $scope.conflicted = true;
+          if($scope.overlay[k].start <= endDate && $scope.overlay[k].end >= endDate)
+            $scope.conflicted = true;
+        }
+        $scope.$apply()
       },
       defaultView: "agendaWeek",
       header:{
@@ -185,6 +194,10 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     }
     $location.path('confirm');
   }
+
+  $scope.resolve = function() {
+    $location.path('ConflictPage');
+  }
 }])
 .controller("ConfirmController", ["$scope", "ConfirmFactory","$location", "UserFactory",
   function($scope, ConfirmFactory, $location, UserFactory) {
@@ -286,65 +299,65 @@ $scope.getFeatures = function(room) {
     $scope.rooms = RoomsFactory.getRooms();
     $scope.reses = [{name: "Meeting for HFID",
     room: "AC 109",
-    date: "11/12",
-    start: 15,
-    end: 17,
+    date: "11/12/2013",
+    time: "3:00:00 PM",
+    end: "5:00:00 PM",
     duration: 2,
     conflicted: false,
     _id: "first"},
     {name: "Meeting for HFID",
     room: "AC 109",
-    date: "11/19",
-    start: 15,
-    end: 17,
+    date: "11/19/2013",
+    start: "3:00:00 PM",
+    end: "5:00:00 PM",
     duration: 2,
     conflicted: true,
     _id: "second"},
     {name: "Meeting for HFID",
     room: "AC 109",
-    date: "11/26",
-    start: 15,
-    end: 17,
+    date: "11/26/2013",
+    start: "3:00:00 PM",
+    end: "5:00:00 PM",
     duration: 2,
     conflicted: false,
     _id: "third"},
     {name: "Meeting for HFID",
     room: "AC 109",
-    date: "12/3",
-    start: 15,
-    end: 17,
+    date: "12/3/2013",
+    start: "3:00:00 PM",
+    end: "5:00:00 PM",
     duration: 2,
     _id: "fourth",
     conflicted: false}];
     $scope.reses = [{name: "Meeting for HFID",
     room: "AC 109",
-    date: "11/12",
-    start: 15,
-    end: 17,
+    date: "11/12/2013",
+    start: "3:00:00 PM",
+    end: "5:00:00 PM",
     duration: 2,
     conflicted: false,
     _id: "first"},
     {name: "Meeting for HFID",
     room: "AC 109",
-    date: "11/19",
-    start: 15,
-    end: 17,
+    date: "11/19/2013",
+    start: "3:00:00 PM",
+    end: "5:00:00 PM",
     duration: 2,
     conflicted: true,
     _id: "second"},
     {name: "Meeting for HFID",
     room: "AC 109",
-    date: "11/26",
-    start: 15,
-    end: 17,
+    date: "11/26/2013",
+    time: "3:00:00 PM",
+    end: "5:00:00 PM",
     duration: 2,
     conflicted: false,
     _id: "third"},
     {name: "Meeting for HFID",
     room: "AC 109",
-    date: "12/3",
-    start: 15,
-    end: 17,
+    date: "12/3/2013",
+    time: "3:00:00 PM",
+    end: "5:00:00 PM",
     duration: 2,
     _id: "fourth",
     conflicted: false}];
