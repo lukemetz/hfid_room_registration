@@ -82,6 +82,9 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
       columnFormat:{
         week: "ddd M/d"
       },
+      eventRender: function(event, element) {
+        element.attr('title', event.conflictString);
+      }
     }
   };
   /* event sources array*/
@@ -94,14 +97,23 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
       $scope.uiConfig.calendar.header = false;
       $scope.uiConfig.calendar.allDaySlot = false;
       $scope.uiConfig.calendar.columnFormat = {week: "ddd"}
+      $scope.uiConfig.calendar.year = 3000;
+      $scope.uiConfig.calendar.month = 0;
+      $scope.uiConfig.calendar.date = 5;      
     }
     if(!recurring){
       $scope.uiConfig.calendar.allDaySlot = true;
       $scope.uiConfig.calendar.header = {left: "",center: "title", right: "today prev next"};
       $scope.uiConfig.calendar.columnFormat = {week: "ddd M/d"};
+      $scope.uiConfig.calendar.year = y;
+      $scope.uiConfig.calendar.month = m;
+      $scope.uiConfig.calendar.date = d;      
     }
   }
   $scope.renderRecur = function(startDateString, endDateString){
+    $scope.myCalendar.fullCalendar("removeEventSource", $scope.overlay);
+    var fillColors = ['#FFFF66', '#FFE85E', '#FFD156', '#FFBA4E', '#FFA347', '#FF8C3F', '#FF7537', '#FF5E30', '#FF4728', '#FF3020', '#FF1919'];
+    var borderColors = ['#FF9900', '#F28900', '#E57A00', '#D86B00', '#CC5B00', '#BF4C00', '#B23D00', '#A62D00', '#991E00', '#8C0F00', '#800000'];
     var startMonth = parseInt(startDateString.substring(0,2));
     var startDay = parseInt(startDateString.substring(3,5));
     var startYear = parseInt(startDateString.substring(6));
@@ -116,7 +128,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
       var eventList = $scope.events;
       var dateSlices = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: []}; // breaking points for heatmap events
       var validEvents = []; // events that fall into the specified range
-      var overlay = [];
+      $scope.overlay = [];
       for(var n=0; n < eventList.length; n++){
         var eventStart = new Date(eventList[n].start.toISOString())
         var eventEnd = new Date(eventList[n].end.toISOString())
@@ -128,22 +140,26 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
         }
       }
       for(var a=0; a<7; a++) {
+        dateSlices[a].sort((function(index){
+          return function(a, b){
+            return (a[index] === b[index] ? 0 : (a[index] < b[index] ? -1 : 1));
+          };
+        })(0))
         for(var b=0; b<dateSlices[a].length-1;b++){
-          var ev = {start: new Date(2013,11,10+a,dateSlices[a][b][0], dateSlices[a][b][1]), end: new Date(2013,11,10+a,dateSlices[a][b+1][0], dateSlices[a][b+1][1]), allDay: false, conflicts: 0}
+          var ev = {conflictString: "0 conflicts", editable: false, start: new Date(3000,0,5+a,dateSlices[a][b][0], dateSlices[a][b][1]), end: new Date(3000,0,5+a,dateSlices[a][b+1][0], dateSlices[a][b+1][1]), allDay: false, conflicts: 0, backgroundColor: fillColors[0], borderColors: borderColors[0], textColor: '#000000'};
           for(var k=0; k<validEvents.length;k++) {
             var curEv = validEvents[k];
             if(curEv.start.getDay() == a && (curEv.start.getHours() < ev.start.getHours() || (curEv.start.getHours() == ev.start.getHours() && curEv.start.getMinutes() <= ev.start.getMinutes())) && (curEv.end.getHours() > ev.end.getHours() || (curEv.end.getHours() == ev.end.getHours() && curEv.end.getMinutes() >= ev.end.getMinutes()))) {
               ev.conflicts++;
+              ev.conflictString = ev.conflicts.toString() + " conflicted events"
+              ev.backgroundColor = fillColors[ev.conflicts - 1];
+              ev.borderColor = borderColors[ev.conflicts - 1]
             }
           }
-          overlay.push(ev);
-          console.log(ev);
+          $scope.overlay.push(ev);
         }
       }
-      $scope.room = UserFactory.selectedRoom
-
-      $scope.recurringEnabled = true;
-
+      $scope.myCalendar.fullCalendar("addEventSource", $scope.overlay);
     }
   }
 }])
@@ -286,8 +302,3 @@ $scope.recurringEnabled = true;
 
     $scope.recurringEnabled = false;
   }]);
-
-
-
-
-
