@@ -208,8 +208,8 @@ $scope.update = function(recurring) {
 $scope.recurringEnabled = true;
 }])
 
-.controller("ConflictPageController", ["$scope", "RoomsFactory", "defaultFilter", "$location",
-  function($scope, RoomsFactory, defaultFilter, $location) {
+.controller("ConflictPageController", ["$scope", "RoomsFactory", "defaultFilter", "$location", "ConfirmFactory",
+  function($scope, RoomsFactory, defaultFilter, $location, ConfirmFactory) {
     $scope.filter = defaultFilter
     $scope.rooms = RoomsFactory.getRooms();
     $scope.reses = [{name: "Meeting for HFID",
@@ -244,7 +244,48 @@ $scope.recurringEnabled = true;
     duration: 2,
     _id: "fourth",
     conflicted: false}];
+    $scope.reses = [{name: "Meeting for HFID",
+    room: "AC 109",
+    date: "11/12",
+    time: 15,
+    end: 17,
+    duration: 2,
+    conflicted: false,
+    _id: "first"},
+    {name: "Meeting for HFID",
+    room: "AC 109",
+    date: "11/19",
+    time: 15,
+    end: 17,
+    duration: 2,
+    conflicted: true,
+    _id: "second"},
+    {name: "Meeting for HFID",
+    room: "AC 109",
+    date: "11/26",
+    time: 15,
+    end: 17,
+    duration: 2,
+    conflicted: false,
+    _id: "third"},
+    {name: "Meeting for HFID",
+    room: "AC 109",
+    date: "12/3",
+    time: 15,
+    end: 17,
+    duration: 2,
+    _id: "fourth",
+    conflicted: false}];
     $scope.selectedConflict = 1;
+
+    $scope.confirm = function() {
+      ConfirmFactory.recurringCurrent = []
+      angular.forEach($scope.reses, function(res) {
+        if (res.conflicted == false && !res.ignore) {
+          ConfirmFactory.recurringCurrent.push(res);
+        }
+      });
+    }
 
     $scope.countConflicted = function(reses) {
       var count = 0;
