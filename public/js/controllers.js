@@ -68,78 +68,90 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
   {title: 'Class',start: new Date(y, m, d + 7, 10, 0), end: new Date(y, m, d + 7, 12, 30), allDay: false},
   {title: 'Meeting',start: new Date(y, m, d + 1, 7, 0),end: new Date(y, m, d + 1, 10, 30),allDay: false},
   ];
-  $scope.uiConfig = {
-    calendar:{
-      height: 450,
-      minTime: 6,
-      editable: true,
-      selectable: true,
-      selectHelper: true,
-      select: function(startDate, endDate, allDay, jsEvent, view) {
-        $scope.startTime = startDate;
-        $scope.endTime = endDate;
-        $scope.conflicted = false;
-        for(var k = 0; k < $scope.overlay.length; k++){
-          if($scope.overlay[k].start <= startDate && $scope.overlay[k].end >= startDate)
-            $scope.conflicted = true;
-          if($scope.overlay[k].start <= endDate && $scope.overlay[k].end >= endDate)
-            $scope.conflicted = true;
+
+  if($scope.room == "AC109" || $scope.room == "AC 109" || $scope.room == "ac109" || $scope.room == "ac 109") {
+    $scope.events = [
+    {title: 'Meeting',start: new Date(2013, 10, 12, 7, 0), end: new Date(2013, 10, 12, 10, 0), allDay: false},
+    {title: 'HFID Meeting',start: new Date(2013, 10, 19, 12, 0), end: new Date(2013, 10, 19, 13, 30), allDay: false},
+    {title: 'Class',start: new Date(2013, 10, 19, 14, 30), end: new Date(2013, 10, 19, 16, 0), allDay: false},
+    {title: 'Meeting',start: new Date(2013, 10, 15, 11, 30),end: new Date(2013, 10, 15, 13, 0),allDay: false},
+    {title: 'Meeting',start: new Date(2013, 10, 12, 7, 0), end: new Date(2013, 10, 12, 10, 0), allDay: false},
+    {title: 'HFID Meeting',start: new Date(2013, 10, 13, 12, 0), end: new Date(2013, 10, 13, 13, 30), allDay: false},
+    {title: 'Class',start: new Date(2013, 10, 14, 9, 0), end: new Date(2013, 10, 14, 10, 30), allDay: false},
+    ];}
+
+    $scope.uiConfig = {
+      calendar:{
+        height: 450,
+        minTime: 6,
+        editable: true,
+        selectable: true,
+        selectHelper: true,
+        select: function(startDate, endDate, allDay, jsEvent, view) {
+          $scope.startTime = startDate;
+          $scope.endTime = endDate;
+          $scope.conflicted = false;
+          for(var k = 0; k < $scope.overlay.length; k++){
+            if($scope.overlay[k].start <= startDate && $scope.overlay[k].end >= startDate)
+              $scope.conflicted = true;
+            if($scope.overlay[k].start <= endDate && $scope.overlay[k].end >= endDate)
+              $scope.conflicted = true;
+          }
+          $scope.$apply()
+        },
+        defaultView: "agendaWeek",
+        header:{
+          left: '',
+          center: 'title',
+          right: 'today prev next'
+        },
+        columnFormat:{
+          week: "ddd M/d"
+        },
+        eventRender: function(event, element) {
+          element.attr('title', event.conflictString);
         }
-        $scope.$apply()
-      },
-      defaultView: "agendaWeek",
-      header:{
-        left: '',
-        center: 'title',
-        right: 'today prev next'
-      },
-      columnFormat:{
-        week: "ddd M/d"
-      },
-      eventRender: function(event, element) {
-        element.attr('title', event.conflictString);
+      }
+    };
+    /* event sources array*/
+    $scope.eventSources = [$scope.events];
+    $scope.forceFront = function() {
+      $("#ui-datepicker-div").zIndex(10);
+    }
+    $scope.swapView = function(recurring) {
+      if(recurring){
+        $scope.uiConfig.calendar.header = false;
+        $scope.uiConfig.calendar.allDaySlot = false;
+        $scope.uiConfig.calendar.columnFormat = {week: "ddd"}
+        $scope.uiConfig.calendar.year = 3000;
+        $scope.uiConfig.calendar.month = 0;
+        $scope.uiConfig.calendar.date = 5;
+      }
+      if(!recurring){
+        $scope.uiConfig.calendar.allDaySlot = true;
+        $scope.uiConfig.calendar.header = {left: "",center: "title", right: "today prev next"};
+        $scope.uiConfig.calendar.columnFormat = {week: "ddd M/d"};
+        $scope.uiConfig.calendar.year = y;
+        $scope.uiConfig.calendar.month = m;
+        $scope.uiConfig.calendar.date = d;
       }
     }
-  };
-  /* event sources array*/
-  $scope.eventSources = [$scope.events];
-  $scope.forceFront = function() {
-    $("#ui-datepicker-div").zIndex(10);
-  }
-  $scope.swapView = function(recurring) {
-    if(recurring){
-      $scope.uiConfig.calendar.header = false;
-      $scope.uiConfig.calendar.allDaySlot = false;
-      $scope.uiConfig.calendar.columnFormat = {week: "ddd"}
-      $scope.uiConfig.calendar.year = 3000;
-      $scope.uiConfig.calendar.month = 0;
-      $scope.uiConfig.calendar.date = 5;
-    }
-    if(!recurring){
-      $scope.uiConfig.calendar.allDaySlot = true;
-      $scope.uiConfig.calendar.header = {left: "",center: "title", right: "today prev next"};
-      $scope.uiConfig.calendar.columnFormat = {week: "ddd M/d"};
-      $scope.uiConfig.calendar.year = y;
-      $scope.uiConfig.calendar.month = m;
-      $scope.uiConfig.calendar.date = d;
-    }
-  }
-  $scope.renderRecur = function(startDateString, endDateString){
-    $scope.myCalendar.fullCalendar("removeEventSource", $scope.overlay);
-    var fillColors = ['#FFFF66', '#FFE85E', '#FFD156', '#FFBA4E', '#FFA347', '#FF8C3F', '#FF7537', '#FF5E30', '#FF4728', '#FF3020', '#FF1919'];
-    var borderColors = ['#FF9900', '#F28900', '#E57A00', '#D86B00', '#CC5B00', '#BF4C00', '#B23D00', '#A62D00', '#991E00', '#8C0F00', '#800000'];
-    var startMonth = parseInt(startDateString.substring(0,2));
-    var startDay = parseInt(startDateString.substring(3,5));
-    var startYear = parseInt(startDateString.substring(6));
-    $scope.startDate = new Date(startYear, startMonth-1, startDay);
-    $("#end-input").datepicker("option", "minDate",$scope.startDate);
-    var endMonth = parseInt(endDateString.substring(0,2));
-    var endDay = parseInt(endDateString.substring(3,5));
-    var endYear = parseInt(endDateString.substring(6));
-    $scope.endDate = new Date(endYear, endMonth-1, endDay)
-    $("#start-input").datepicker("option", "maxDate",$scope.endDate);
-    if(startDateString.length == 10 || endDateString.length == 10){
-      var eventList = $scope.events;
+    $scope.renderRecur = function(startDateString, endDateString){
+      $scope.myCalendar.fullCalendar("removeEventSource", $scope.overlay);
+      var fillColors = ['#FFFF66', '#FFE85E', '#FFD156', '#FFBA4E', '#FFA347', '#FF8C3F', '#FF7537', '#FF5E30', '#FF4728', '#FF3020', '#FF1919'];
+      var borderColors = ['#FF9900', '#F28900', '#E57A00', '#D86B00', '#CC5B00', '#BF4C00', '#B23D00', '#A62D00', '#991E00', '#8C0F00', '#800000'];
+      var startMonth = parseInt(startDateString.substring(0,2));
+      var startDay = parseInt(startDateString.substring(3,5));
+      var startYear = parseInt(startDateString.substring(6));
+      $scope.startDate = new Date(startYear, startMonth-1, startDay);
+      $("#end-input").datepicker("option", "minDate",$scope.startDate);
+      var endMonth = parseInt(endDateString.substring(0,2));
+      var endDay = parseInt(endDateString.substring(3,5));
+      var endYear = parseInt(endDateString.substring(6));
+      $scope.endDate = new Date(endYear, endMonth-1, endDay)
+      $("#start-input").datepicker("option", "maxDate",$scope.endDate);
+      if(startDateString.length == 10 || endDateString.length == 10){
+        var eventList = $scope.events;
       var dateSlices = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: []}; // breaking points for heatmap events
       var validEvents = []; // events that fall into the specified range
       $scope.overlay = [];
@@ -348,7 +360,7 @@ $scope.getFeatures = function(room) {
     {name: "Meeting for HFID",
     room: "AC 109",
     date: "11/26/2013",
-    time: "3:00:00 PM",
+    start: "3:00:00 PM",
     end: "5:00:00 PM",
     duration: 2,
     conflicted: false,
@@ -356,7 +368,7 @@ $scope.getFeatures = function(room) {
     {name: "Meeting for HFID",
     room: "AC 109",
     date: "12/3/2013",
-    time: "3:00:00 PM",
+    start: "3:00:00 PM",
     end: "5:00:00 PM",
     duration: 2,
     _id: "fourth",
