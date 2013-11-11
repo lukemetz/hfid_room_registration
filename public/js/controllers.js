@@ -71,7 +71,6 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
 
   if($scope.room == "AC109" || $scope.room == "AC 109" || $scope.room == "ac109" || $scope.room == "ac 109") {
     $scope.events = [
-    {title: 'Meeting',start: new Date(2013, 10, 12, 7, 0), end: new Date(2013, 10, 12, 10, 0), allDay: false},
     {title: 'HFID Meeting',start: new Date(2013, 10, 19, 12, 0), end: new Date(2013, 10, 19, 13, 30), allDay: false},
     {title: 'Class',start: new Date(2013, 10, 19, 14, 30), end: new Date(2013, 10, 19, 16, 0), allDay: false},
     {title: 'Meeting',start: new Date(2013, 10, 15, 11, 30),end: new Date(2013, 10, 15, 13, 0),allDay: false},
@@ -182,7 +181,8 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
               ev.borderColor = borderColors[ev.conflicts - 1]
             }
           }
-          $scope.overlay.push(ev);
+          if(ev.conflicts)
+            $scope.overlay.push(ev);
         }
       }
       $scope.myCalendar.fullCalendar("addEventSource", $scope.overlay);
