@@ -11,7 +11,8 @@
                 //div(ng-if="!recurring")
                 //input(disabled type="text")#date-input
                 //div(ng-if="!recurring")
-                input(type="text" ui-date  ng-model="date")#date-input
+                input(type="text" ui-date ng-hide="recurring" ng-model="date")#date-input
+                input(type="text" ui-date ng-hide="!recurring", disabled)#date-input
             div.large-2.columns
               label(for="date-input").right.inline Start Time
             div.large-2.columns
@@ -85,15 +86,31 @@
           | Max
           input(type="text", ng-model="filter.capacity.max")#capacity-max
         h5 Features
-        span(ng-repeat="(name, value) in filter.features")
-          label(for="{{name}}")
-            input(type="checkbox", id="{{name}}", ng-model="filter.features[name]")
-            | {{name}}
-
+        label(for="whiteboards")
+          input(type="checkbox", id="whiteboards", ng-model="filter.features.Whiteboards")
+          | Whiteboards
+        label(for="podium")
+          input(type="checkbox", id="podium", ng-model="filter.features.Podium")
+          | Podium
+        label(for="projector")
+          input(type="checkbox", id="projector", ng-model="filter.features.LCDProjector")
+          | Projector
+        label(for="")
+          input(type="checkbox", id="")
+          | Chalkboard 
+        label(for="")
+          input(type="checkbox", id="")
+          | Group Seating
+        label(for="")
+          input(type="checkbox", id="")
+          | Studio
+        label(for="")
+          input(type="checkbox", id="")
+          | Lab
     .large-8.columns
       .panel
         div
-          h5 Avalible Rooms:
+          h5 Available Rooms:
           .row
             .large-2.columns Search:
             .large-10.columns
@@ -108,12 +125,15 @@
               th
                 a(href="javascript:void(0);", ng-click="predicate='capacity'; reverse=!reverse") Capacity
               th
+                a(href="javascript:void(0);", ng-click="predicate='features'; reverse=!reverse") Features
+              th
                 a(href="javascript:void(0);") 
           tbody
             tr(ng-repeat="room in filtered_rooms = (rooms | orderBy:predicate:reverse | filter:search | filterRooms:filter:{date:date, start:start, durration:durration, recurring:recurring})")
               td {{room.name}}
               td {{room.building}}
               td {{room.capacity}}
+              td {{getFeatures(room)}}
               td
                 a(href="javascript:void(0);" ng-click="submit(room.name)").button.small Select Room
         div(ng-if="!filtered_rooms.length")
