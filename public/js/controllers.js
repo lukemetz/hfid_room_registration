@@ -31,7 +31,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
   }])
 .controller("CalController", ["$scope", "$location", "UserFactory", "defaultFilter", "ConfirmFactory",
  function($scope, $location, UserFactory, defaultFilter, ConfirmFactory) {
-
+  $scope.recurDays = [0, 0, 0, 0, 0, 0, 0]
   $scope.room = UserFactory.selectedRoom
 
   var curDate = new Date();
@@ -63,9 +63,9 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
   };
   $scope.events = [
   {title: 'Meeting',start: new Date(y, m-1, d, 17, 0), end: new Date(y, m-1, 13,20,0), allDay: false},
-  {title: '',start: new Date(y, m, d, 12, 0), end: new Date(y, m, d, 14, 30), allDay: false},
-  {title: 'Repeating Event',start: new Date(y, m, d + 7, 10, 0), end: new Date(y, m, d + 7, 12, 30), allDay: false},
-  {title: 'Birthday Party',start: new Date(y, m, d + 1, 7, 0),end: new Date(y, m, d + 1, 10, 30),allDay: false},
+  {title: 'HFID Meeting',start: new Date(y, m, d, 12, 0), end: new Date(y, m, d, 14, 30), allDay: false},
+  {title: 'Class',start: new Date(y, m, d + 7, 10, 0), end: new Date(y, m, d + 7, 12, 30), allDay: false},
+  {title: 'Meeting',start: new Date(y, m, d + 1, 7, 0),end: new Date(y, m, d + 1, 10, 30),allDay: false},
   ];
   $scope.uiConfig = {
     calendar:{
@@ -75,9 +75,8 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
       selectable: true,
       selectHelper: true,
       select: function(startDate, endDate, allDay, jsEvent, view) {
-        $scope.startDate = startDate;
-        console.log(startDate)
-        $scope.endDate = endDate;
+        $scope.startTime = startDate;
+        $scope.endTime = endDate;
       },
       defaultView: "agendaWeek",
       header:{
@@ -123,13 +122,13 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     var startMonth = parseInt(startDateString.substring(0,2));
     var startDay = parseInt(startDateString.substring(3,5));
     var startYear = parseInt(startDateString.substring(6));
-    var startDate = new Date(startYear, startMonth-1, startDay);
-    $("#end-input").datepicker("option", "minDate",startDate);
+    $scope.startDate = new Date(startYear, startMonth-1, startDay);
+    $("#end-input").datepicker("option", "minDate",$scope.startDate);
     var endMonth = parseInt(endDateString.substring(0,2));
     var endDay = parseInt(endDateString.substring(3,5));
     var endYear = parseInt(endDateString.substring(6));
-    var endDate = new Date(endYear, endMonth-1, endDay)
-    $("#start-input").datepicker("option", "maxDate",endDate);
+    $scope.endDate = new Date(endYear, endMonth-1, endDay)
+    $("#start-input").datepicker("option", "maxDate",$scope.endDate);
     if(startDateString.length == 10 || endDateString.length == 10){
       var eventList = $scope.events;
       var dateSlices = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: []}; // breaking points for heatmap events
@@ -138,7 +137,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
       for(var n=0; n < eventList.length; n++){
         var eventStart = new Date(eventList[n].start.toISOString())
         var eventEnd = new Date(eventList[n].end.toISOString())
-        if(eventStart >= startDate && eventEnd <= endDate) {
+        if(eventStart >= $scope.startDate && eventEnd <= $scope.endDate) {
           validEvents.push(eventList[n])
           var day = eventStart.getDay()
           dateSlices[day].push([eventStart.getHours(), eventStart.getMinutes()]);
@@ -168,37 +167,24 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
       $scope.myCalendar.fullCalendar("addEventSource", $scope.overlay);
     }
   }
-  $scope.submit = function(roomName) {
-    console.log($scope.startDate.toLocaleTimeString())
-    ConfirmFactory.setCurrent({room:$scope.room, on:$scope.startDate.toLocaleDateString(), at:$scope.startDate.toLocaleTimeString()});
+  $scope.submit = function() {
+    ConfirmFactory.setCurrent({room:$scope.room, on:$scope.startTime.toLocaleDateString(), at:$scope.startTime.toLocaleTimeString()});
     if ($scope.recurring) {
-      ConfirmFactory.recurringCurrent = [{name: "Meeting for HFID",
-      room: "AC 109",
-      date: "11/12",
-      start: 15,
-      end: 17
-    },
-    {name: "Meeting for HFID",
-    room: "AC 109",
-    date: "11/19",
-    start: 15,
-    end: 17
-  },
-  {name: "Meeting for HFID",
-  room: "AC 109",
-  date: "11/26",
-  start: 15,
-  end: 17
-},
-{name: "Meeting for HFID",
-room: "AC 109",
-date: "12/3",
-start: 15,
-end: 1,
-}];
-}
-$location.path('confirm');
-}
+      ConfirmFactory.recurringCurrent = [];
+      var date = new Date($scope.startDate.toString())
+      while(date < $scope.endDate){
+        if($scope.recurDays[date.getDay()]){
+          date.setDate(date.getDate() + 7);
+          var ev = {room:$scope.room, date: date.toLocaleDateString(), start:$scope.startTime.toLocaleTimeString(), end: $scope.endTime.toLocaleTimeString()};
+          ConfirmFactory.recurringCurrent.push(ev);
+        }
+        else{
+          date.setDate(date.getDate() + 1);
+        }
+      }
+    }
+    $location.path('confirm');
+  }
 }])
 .controller("ConfirmController", ["$scope", "ConfirmFactory","$location", "UserFactory",
   function($scope, ConfirmFactory, $location, UserFactory) {

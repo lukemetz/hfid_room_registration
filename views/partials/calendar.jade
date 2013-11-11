@@ -32,25 +32,25 @@
           .row(ng-if="recurring")
             .small-1.columns.small-offset-2
               label(for="mon").right.inline Mon 
-              input(type="checkbox")#mon
+              input(type="checkbox" ng-model="recurDays[1]")#mon
             .small-1.columns
               label(for="tues").right.inline Tues
-              input(type="checkbox")#tues
+              input(type="checkbox" ng-model="recurDays[2]")#tues
             .small-1.columns
               label(for="wed").right.inline Wed
-              input(type="checkbox")#wed
+              input(type="checkbox" ng-model="recurDays[3]")#wed
             .small-1.columns
               label(for="thur").right.inline Thur
-              input(type="checkbox")#thur
+              input(type="checkbox" ng-model="recurDays[4]")#thur
             .small-1.columns
               label(for="fri").right.inline Fri
-              input(type="checkbox")#fri
+              input(type="checkbox" ng-model="recurDays[5]")#fri
             .small-1.columns
               label(for="sat").right.inline Sat
-              input(type="checkbox")#sat
+              input(type="checkbox" ng-model="recurDays[6]")#sat
             .small-1.columns.small-uncentered
               label(for="Sun").right.inline Sun
-              input(type="checkbox")#sun
+              input(type="checkbox" ng-model="recurDays[0]")#sun
             .small-offset-5
 
 
