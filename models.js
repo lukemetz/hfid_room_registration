@@ -32,7 +32,8 @@ var resSchema = new Schema({
                             time: Number,
                             end: Number,
                             duration: Number, //this is in hours aka 1hour = 1 and 2hours 30 min = 2.5
-                            conflicted: Boolean
+                            conflicted: Boolean,
+                            approved: Boolean
                           });
 
 var Reservation = mongoose.model('Reservation', resSchema);
