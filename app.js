@@ -41,6 +41,7 @@ app.get('/partial/:name', routes.partial);
 
 app.get('/api/name', api.name);
 app.get('/api/rooms', api.rooms);
+app.get('/api/rooms_list', api.rooms_list);
 app.get('/api/reservations', api.reservations);
 
 // redirect all others to the index (HTML5 history)

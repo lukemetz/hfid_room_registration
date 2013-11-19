@@ -19,6 +19,14 @@ angular.module('myApp.services', [])
       });
       return rooms;
     }
+
+    RoomsFactory.getRoomsAsync = function(func) {
+      $http({method:"GET", url: "/api/rooms"})
+      .success(function(data, status, headers, config) {
+        func(data);
+      });
+
+    };
     return RoomsFactory;
   }])
   .value("defaultFilter", {

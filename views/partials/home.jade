@@ -6,7 +6,7 @@
         h3 Make a Room Reservation
         .columns.large-6
           h5 Room Name: 
-          input(ng-model="room", placeholder="Room Name", typeahead='name for name in states | filter:selected')) 
+          input(ng-model="room", ng-click="apply" placeholder="Room Name" class="sfTypeahead" datasets="rooms") 
           a(href="/#/roomSelect").button Check Avalibility
         .columns.large-2
           h3 Or

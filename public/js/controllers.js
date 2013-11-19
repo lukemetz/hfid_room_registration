@@ -2,12 +2,20 @@
 
 /* Controllers */
 
-angular.module("myApp.controllers", ['ui.calendar']).
+angular.module("myApp.controllers", ['ui.calendar', 'siyfion.sfTypeahead']).
 controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFactory, $http) {
   $scope.name = UserFactory.name;
 }])
-.controller("HomeController", ["$scope", "UserFactory", function($scope, UserFactory) {
-  //$scope.room = "any";
+.controller("HomeController", ["$scope", "UserFactory", "RoomsFactory", function($scope, UserFactory, RoomsFactory) {
+  //Yes I know this is very bad.
+  var rooms = ["AC 106","AC 107","AC 108","AC 109","CC 100","CC 101","CC 102","CC 103",
+  "CC 104","CC 105","CC 106","CC 107","CC 108","CC 109", "MH 100", "MH 101",
+  "MH 102", "MH 103", "MH 104", "MH 105", "MH 106", "MH 107", "MH 108",
+  "MH 109", "AC 100", "AC 101", "AC 102", "AC 103", "AC 104", "AC 105" ]
+  $scope.rooms = {name:"name",
+    local:rooms};
+
+  $('.ui-autocomplete').addClass('f-dropdown');
   $scope.currentEvents = UserFactory.currentEvents;
   $scope.reservations = UserFactory.reservations;
   $scope.alertOpen = UserFactory.alertOpen;

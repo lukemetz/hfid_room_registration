@@ -15,6 +15,16 @@ exports.rooms = function(req, res) {
   });
 };
 
+exports.rooms_list = function(req, res) {
+  var rooms = models.Room.find({}, function(err, models) {
+    list = [];
+    for(var i=0; i < models.length; i++) {
+      list.push(models[i].name)
+    }
+    res.json(list);
+  });
+};
+
 exports.reservations = function(req, res) {
   id = req.query.room_id;
   var r = function(name, start, end) {
