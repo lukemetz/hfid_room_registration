@@ -2,16 +2,17 @@
   .row
     .columns.small-7
       h1 Hello {{name}}
-      .panel
+      .panel.row
         h3 Make a Room Reservation
-        | Room Name: 
-        input(ng-model="room", typeahead='name for name in states | filter:selected')) 
-        span(ng-switch="room")
-          span(ng-switch-when="any")
-            a(href="/#/roomSelect").button.small Submit
-          span(ng-switch-default)
-            a(href="/#/calendar", ng-click="forwardRoom()").button.small Submit
-      .panel
+        .columns.large-6
+          h5 Room Name: 
+          input(ng-model="room", placeholder="Room Name", typeahead='name for name in states | filter:selected')) 
+          a(href="/#/roomSelect").button Check Avalibility
+        .columns.large-2
+          h3 Or
+        .columns.large-4
+          a.button View Rooms
+      .panel.row
         h3 Your Reservations
 
         table(style="width:100%;", ng-if = "reservations.length")
