@@ -7,7 +7,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
   $scope.name = UserFactory.name;
 }])
 .controller("HomeController", ["$scope", "UserFactory", function($scope, UserFactory) {
-  $scope.room = "any";
+  //$scope.room = "any";
   $scope.currentEvents = UserFactory.currentEvents;
   $scope.reservations = UserFactory.reservations;
   $scope.alertOpen = UserFactory.alertOpen;
