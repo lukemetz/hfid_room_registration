@@ -195,9 +195,9 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
       var date = new Date($scope.startDate.toString())
       while(date < $scope.endDate){
         if(date.getDay() == $scope.startDate.getDay()){
-          date.setDate(date.getDate() + 7);
           var ev = {room:$scope.room, date: date.toLocaleDateString(), start:$scope.startTime.toLocaleTimeString(), end: $scope.endTime.toLocaleTimeString()};
           ConfirmFactory.recurringCurrent.push(ev);
+          date.setDate(date.getDate() + 7);
         }
         else{
           date.setDate(date.getDate() + 1);

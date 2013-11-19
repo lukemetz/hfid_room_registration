@@ -23,7 +23,7 @@
               .small-2.columns
                 label.right.inline Start
               .small-3.columns
-                input(ui-date="startPicker" ui-date-format="mm/dd/yy" ng-focus="forceFront()" type="text" placeholder="Date" ng-model="startDateString" ng-change="renderRecur(startDateString,endDateString)")#start-input
+                input(ui-date="startPicker" ui-date-format="mm/dd/yy" ng-focus="forceFront()" type="text" placeholder="Date" ng-model="startDateString" ng-init="startDateString=date" ng-change="renderRecur(startDateString,endDateString)")#start-input
               .small-2.columns
                 label.right.inline End 
               .small-3.columns
@@ -59,7 +59,6 @@
     div.large-12.columns(ui-calendar="uiConfig.calendar" calendar="myCalendar" ng-model="eventSources")#calendar
     //a(ng-switch="conflicted")
       a(ng-switch-when="conflicted" ng-click="submit()").button.right Correct Conflicts
-    {{conflicted | json}}
     a(ng-if="conflicted" ng-click="resolve()").button.right Resolve conflicts
     a(ng-if="!conflicted" ng-click="submit()").button.right Next
 
