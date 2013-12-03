@@ -82,12 +82,28 @@ exports.populate = function(req, res){
   }
 
 var reser = new models.Reservation({
+                            user: "Sam",
                             name: "HFID Meeting",
                             room: "AC 109",
                             // date: ,
                             time: 10,
                             end: 12,
-                            duration: 2
+                            duration: 2,
+                            approved: true
+                            });
+      reser.save(function(err){
+          if (err) return ("error saving AC109", err);
+          console.log(i.toString() + ' saved');
+      });
+var reser = new models.Reservation({
+                            user: "Sam",
+                            name: "HFID Meeting",
+                            room: "AC 109",
+                            // date: ,
+                            time: 2,
+                            end: 4,
+                            duration: 2,
+                            approved: false
                             });
       reser.save(function(err){
           if (err) return ("error saving AC109", err);
