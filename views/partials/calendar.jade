@@ -10,9 +10,11 @@
             Room.small-3.columns
               input(type="text", placeholder="Room", ng-model="room")#room-input
             div.small-2.columns
-              label(for="date-input").right.inline Date
+              p
+              //label(for="date-input").right.inline Date
             div.small-3.columns
-              input(ui-date="datePicker" ng-disabled="recurring" ui-date-format="mm/dd/yy" ng-focus="forceFront()" type="text" placeholder="Date" ng-model="date" ng-change="dateChange(date)")#date-input       
+              p
+              //input(ui-date="datePicker" ng-disabled="recurring" ui-date-format="mm/dd/yy" ng-focus="forceFront()" type="text" placeholder="Date" ng-model="date" ng-change="dateChange(date)")#date-input       
             div.small-1.columns
               label(for="recurring-input").left Weekly event?
             div.small-1.columns
