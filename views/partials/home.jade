@@ -4,14 +4,15 @@
       h1 Hello {{name}}
       .panel.row
         h3 Make a Room Reservation
-        .columns.large-6
-          h5 Room Name: 
-          input(ng-model="room", ng-click="apply" placeholder="Room Name" class="sfTypeahead" datasets="rooms") 
-          a(href="/#/roomSelect").button Check Avalibility
-        .columns.large-2
+        .columns.small-5
+          h5 Room Name:
+          input(ng-model="room", id="roomName", ng-click="apply" placeholder="Room Name" class="sfTypeahead" datasets="rooms")
+          a(href="/#/calendar", ng-click="forwardRoom()").button Check Avalibility
+        .columns.small-2
           h3 Or
-        .columns.large-4
-          a(ng-href="#/roomSelect").button View Rooms
+        .columns.small-5
+          a.button(href="/#/roomSelect") View All Rooms
+      br
       .panel.row
         h3 Your Reservations
 
@@ -22,6 +23,7 @@
             th Date
             th Start Time
             th
+            th Status
             th
 
           tr(ng-repeat="reservation in reservations")
@@ -30,6 +32,9 @@
             td {{reservation.room}}
             td {{reservation.date}}
             td {{reservation.time}}
+            td(ng-if="reservation.approved") Approved
+            td(ng-if="!reservation.approved") Requested
+
             td
               a.button.small(href="javascript:void(0);", ng-click="cancel($index)") Cancel
             td

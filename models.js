@@ -26,6 +26,7 @@ var roomSchema = new Schema({
 var Room = mongoose.model('Room', roomSchema);
 
 var resSchema = new Schema({
+                            user: String,
                             name: String,
                             room: String,
                             date: Date,
@@ -40,3 +41,5 @@ var Reservation = mongoose.model('Reservation', resSchema);
 
 exports.Room = Room;
 exports.Reservation = Reservation;
+
+
