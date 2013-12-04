@@ -3,7 +3,7 @@
     .columns.small-7
       h1 Hello {{name}}
 
-      .panel.row
+      //.panel.row
         h3 Make a Room Reservation
         .columns.small-5
           h5 Room Name:
@@ -14,14 +14,14 @@
         .columns.small-5
           a.button(href="/#/roomSelect") View All Rooms
 
-      //.panel.row
+      .panel.row
         h3 Make a Room Reservation
         .columns.small-5
-          button.a(href="/#/calendar", ng-click="forwardRoom()").button Calendar page text
+          a.button(href="/#/roomSelect") Help Me Find a Room
         .columns.small-2
           h3 Or
         .columns.small-5
-          a.button(href="/#/roomSelect") View All Rooms text
+          a.button(href="/#/calendar").button Reserve a Specific Room
 
       br
       .panel.row
