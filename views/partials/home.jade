@@ -5,9 +5,9 @@
       .panel.row
         h3 Make a Room Reservation
         .columns.small-5
-          h5 Room Name: 
-          input(ng-model="room", ng-click="apply" placeholder="Room Name" class="sfTypeahead" datasets="rooms") 
-          a(href="/#/calendar").button Check Avalibility
+          h5 Room Name:
+          input(ng-model="room", id="roomName", ng-click="apply" placeholder="Room Name" class="sfTypeahead" datasets="rooms")
+          a(href="/#/calendar", ng-click="forwardRoom()").button Check Avalibility
         .columns.small-2
           h3 Or
         .columns.small-5
@@ -19,7 +19,7 @@
         table(style="width:100%;", ng-if = "reservations.length")
           tr
             th Event Name
-            th Room 
+            th Room
             th Date
             th Status
             th
@@ -28,7 +28,8 @@
             td {{reservation.name}}
             td {{reservation.room}}
             td {{reservation.date}}
-            td {{reservation.approved}}
+            td(ng-if="reservation.approved") Approved
+            td(ng-if="!reservation.approved") Requested
             td
               a.button.small(href="javascript:void(0);", ng-click="cancel($index)") Cancel
         .alert-box.success(ng-if="alertOpen") Your room request has been submitted for approval. Expect an email with a confirmation.

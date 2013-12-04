@@ -43,6 +43,7 @@ app.get('/api/name', api.name);
 app.get('/api/rooms', api.rooms);
 app.get('/api/rooms_list', api.rooms_list);
 app.get('/api/reservations', api.reservations);
+app.post('/api/add_reservations', api.add_reservations);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);

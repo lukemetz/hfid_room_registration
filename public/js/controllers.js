@@ -6,7 +6,7 @@ angular.module("myApp.controllers", ['ui.calendar', 'siyfion.sfTypeahead']).
 controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFactory, $http) {
   $scope.name = UserFactory.name;
 }])
-.controller("HomeController", ["$scope", "UserFactory", "RoomsFactory", function($scope, UserFactory, RoomsFactory) {
+.controller("HomeController", ["$scope", "UserFactory", "ReservationsFactory", "RoomsFactory", function($scope, UserFactory, ReservationsFactory, RoomsFactory) {
   //Yes I know this is very bad.
   var rooms = ["AC 106","AC 107","AC 108","AC 109","CC 100","CC 101","CC 102","CC 103",
   "CC 104","CC 105","CC 106","CC 107","CC 108","CC 109", "MH 100", "MH 101",
@@ -14,10 +14,10 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
   "MH 109", "AC 100", "AC 101", "AC 102", "AC 103", "AC 104", "AC 105" ]
   $scope.rooms = {name:"name",
     local:rooms};
-
   $('.ui-autocomplete').addClass('f-dropdown');
   $scope.currentEvents = UserFactory.currentEvents;
-  $scope.reservations = UserFactory.reservations;
+  $scope.reservations = ReservationsFactory.getReservations();
+  console.log($scope.reservations);
   $scope.alertOpen = UserFactory.alertOpen;
     //UserFactory.alertOpen = false;
     $scope.closeAlert = function() {
@@ -34,6 +34,8 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     }
 
     $scope.forwardRoom = function() {
+      $scope.room = $("#roomName").val();
+      console.log($scope.room);
       UserFactory.selectedRoom = $scope.room
     }
   }])
