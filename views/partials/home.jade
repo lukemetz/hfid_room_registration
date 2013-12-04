@@ -11,7 +11,7 @@
         .columns.large-2
           h3 Or
         .columns.large-4
-          a.button View Rooms
+          a(ng-href="#/roomSelect").button View Rooms
       .panel.row
         h3 Your Reservations
 
@@ -20,14 +20,20 @@
             th Event Name
             th Room
             th Date
+            th Start Time
+            th
             th
 
           tr(ng-repeat="reservation in reservations")
-            td {{reservation.name}}
+            td
+              a(ng-click="noFunction()") {{reservation.name}}
             td {{reservation.room}}
             td {{reservation.date}}
+            td {{reservation.time}}
             td
               a.button.small(href="javascript:void(0);", ng-click="cancel($index)") Cancel
+            td
+              a.button.small(href="javascript:void(0);", ng-click="noFunction($index)") Details
         .alert-box.success(ng-if="alertOpen") Your room request has been submitted for approval. Expect an email with a confirmation.
           a.close( ng-click="closeAlert()") x
         div(ng-if="!reservations.length")

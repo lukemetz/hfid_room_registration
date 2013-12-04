@@ -16,6 +16,9 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     local:rooms};
 
   $('.ui-autocomplete').addClass('f-dropdown');
+  $scope.noFunction = function() {
+    alert("Sorry, the details page is not yet implemented");
+  }
   $scope.currentEvents = UserFactory.currentEvents;
   $scope.reservations = UserFactory.reservations;
   $scope.alertOpen = UserFactory.alertOpen;
