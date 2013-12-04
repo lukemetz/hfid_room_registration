@@ -229,8 +229,8 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     $location.path('ConflictPage');
   }
 }])
-.controller("ConfirmController", ["$scope", "ConfirmFactory","$location", "UserFactory",
-  function($scope, ConfirmFactory, $location, UserFactory) {
+.controller("ConfirmController", ["$scope", "$window", "ConfirmFactory","$location", "UserFactory",
+  function($scope, $window, ConfirmFactory, $location, UserFactory) {
     $scope.reservations = ConfirmFactory.recurringCurrent;
     console.log($scope.reservations);
     angular.forEach($scope.reservations, function(res) {
@@ -250,7 +250,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     $scope.email = UserFactory.email;
 
     $scope.backButton = function() {
-      $location.path('/#/roomSelect');
+      window.history.back();
     }
 
     $scope.confirmButton = function() {
