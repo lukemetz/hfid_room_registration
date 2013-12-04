@@ -34,6 +34,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
         $scope.reservations.splice(index,1);
         // ReservationsFactory.delete
       }
+      $scope.closeAlert();
     }
     function TypeaheadCtrl($scope) {
       $scope.selected = undefined;
