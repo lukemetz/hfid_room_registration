@@ -8,7 +8,7 @@ angular.module('myApp.filters', []).
       return String(text).replace(/\%VERSION\%/mg, version);
     }
   }])
-  .filter("filterRooms", ["ReservationFactory", function(ReservationsFactory) {
+  .filter("filterRooms", ["ReservationsFactory", function(ReservationsFactory) {
     return function(rooms, filter, reservation) {
       var filtered = [];
       //Filter by building name
