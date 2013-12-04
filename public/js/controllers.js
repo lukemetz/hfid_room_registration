@@ -25,7 +25,11 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     }
     $scope.cancel = function(index) {
       if (confirm("Are you sure")) { //Really, I used system popups....
+        var res_to_delete = $scope.reservations[index];
+        console.log(res_to_delete);
+        ReservationsFactory.deleteRes(res_to_delete);
         $scope.reservations.splice(index,1);
+        // ReservationsFactory.delete
       }
     }
     function TypeaheadCtrl($scope) {

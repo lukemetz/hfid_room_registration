@@ -37,6 +37,15 @@ exports.reservations = function(req, res) {
     res.json(Reservations);
   })
 }
+
+exports.DeleteReservations = function(req, res) {
+  console.log("+++++++++++++++++++++++++");
+  console.log(req);
+  console.log(req.body);
+  models.Reservation.find({_id:req.body._id}).remove().exec(function(err){
+    if (err) throw err;
+  });
+}
   // id = req.query.room_id;
   // var r = function(name, start, end) {
   //   return {
