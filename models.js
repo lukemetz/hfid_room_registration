@@ -5,22 +5,23 @@ var roomSchema = new Schema({
                             name: {type: String, unique: true},
                             building: String,
                             capacity: Number,
-                            //Features
-                            BlackoutCapability: Boolean,
-                            HandicapAccessability: Boolean,
-                            Softseating: Boolean,
-                            TablesChairs: Boolean,
+                            type: String,
                             Whiteboards: Boolean,
                             Blackboards: Boolean,
-                            ProjectionScreen: Boolean,
-                            LCDProjector: Boolean,
-                            CarpetFlooring: Boolean,
-                            TileFlooring: Boolean,
-                            Multimedia: Boolean,
-                            Benches: Boolean,
                             Podium: Boolean,
-                            TieredSeating: Boolean,
-                            DoNotRearrange: Boolean
+                            ProjectionScreen: Boolean,
+                            LCDProjector: Boolean
+                            //Features
+                            // BlackoutCapability: Boolean,
+                            // HandicapAccessability: Boolean,
+                            // Softseating: Boolean,
+                            // TablesChairs: Boolean,
+                            // CarpetFlooring: Boolean,
+                            // TileFlooring: Boolean,
+                            // Multimedia: Boolean,
+                            // Benches: Boolean,
+                            // TieredSeating: Boolean,
+                            // DoNotRearrange: Boolean
                           });
 
 var Room = mongoose.model('Room', roomSchema);

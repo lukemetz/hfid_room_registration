@@ -32,20 +32,18 @@
             th Event Name
             th Room
             th Date
-            th Start Time
+            th Time
             th Status
             th
             th
 
           tr(ng-repeat="reservation in reservations")
-            td
-              a(ng-click="noFunction()") {{reservation.name}}
+            td {{reservation.name}}
             td {{reservation.room}}
-            td {{reservation.date}}
-            td {{reservation.time}}
+            td {{reservation.start|date:'MM/dd/yyyy'}}
+            td {{reservation.start|date:'hh:mm'}}-{{reservation.end|date:'hh:mm'}}
             td(ng-if="reservation.approved") Approved
             td(ng-if="!reservation.approved") Requested
-
             td
               a.button.small(href="javascript:void(0);", ng-click="cancel($index)") Cancel
             td
