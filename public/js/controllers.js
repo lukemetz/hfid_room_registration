@@ -255,6 +255,10 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     }
 
     $scope.confirmButton = function() {
+      if ($scope.eventName == undefined) {
+        alert("Please enter an event name");
+        return;
+      }
       if ($scope.reservations) {
         var length = $scope.reservations.length;
         var date = "(" + $scope.reservations[0].date + " - " + $scope.reservations[length-1].date + ")";
@@ -278,7 +282,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
                 duration: 2,
                 approved: false,
                 name:$scope.eventName,
-                room: $scope.reservations[0].room,
+                room: $scope.roomName,
                 date: new Date(2013, 12, 12, 11, 13),
                 time: $scope.time});
       }
