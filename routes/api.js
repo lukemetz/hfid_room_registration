@@ -25,37 +25,56 @@ exports.rooms_list = function(req, res) {
   });
 };
 
+exports.add_reservations = function(req, res) {
+  //mongo
+  // return list ofreservations
+  //res.json(objects)
+}
+
 exports.reservations = function(req, res) {
-  id = req.query.room_id;
-  var r = function(name, start, end) {
-    return {
-      room: name,
-      start: start,
-      end: end
-    }
-  }
-  var month = 11;
-  var day = 10;
-  res.json([
-      r("AC 109", new Date(2013, month, day, 11, 13), new Date(2013, month, day, 11, 15)),
-      r("AC 109", new Date(2013, month, day, 11, 16), new Date(2013, month, day, 11, 18)),
-      r("AC 101", new Date(2013, month, day, 12, 13), new Date(2013, month, day, 12, 15)),
-      r("AC 101", new Date(2013, month, day, 12, 16), new Date(2013, month, day, 12, 18)),
-      r("AC 102", new Date(2013, month, day, 13, 13), new Date(2013, month, day, 13, 15)),
-      r("AC 102", new Date(2013, month, day, 13, 16), new Date(2013, month, day, 13, 18)),
 
-      r("CC 109", new Date(2013, month, day, 11, 13), new Date(2013, month, day, 11, 15)),
-      r("CC 109", new Date(2013, month, day, 11, 16), new Date(2013, month, day, 11, 18)),
-      r("CC 101", new Date(2013, month, day, 12, 13), new Date(2013, month, day, 12, 15)),
-      r("CC 101", new Date(2013, month, day, 12, 16), new Date(2013, month, day, 12, 18)),
-      r("CC 102", new Date(2013, month, day, 13, 13), new Date(2013, month, day, 13, 15)),
-      r("CC 102", new Date(2013, month, day, 13, 16), new Date(2013, month, day, 13, 18)),
+  models.Reservation.find().exec(function (err, Reservations){
+    res.json(Reservations);
+  })
+}
 
-      r("MH 109", new Date(2013, month, day, 11, 13), new Date(2013, month, day, 11, 15)),
-      r("MH 109", new Date(2013, month, day, 11, 16), new Date(2013, month, day, 11, 18)),
-      r("MH 101", new Date(2013, month, day, 12, 13), new Date(2013, month, day, 12, 15)),
-      r("MH 101", new Date(2013, month, day, 12, 16), new Date(2013, month, day, 12, 18)),
-      r("MH 102", new Date(2013, month, day, 13, 13), new Date(2013, month, day, 13, 15)),
-      r("MH 102", new Date(2013, month, day, 13, 16), new Date(2013, month, day, 13, 18)),
-    ]);
-};
+exports.DeleteReservations = function(req, res) {
+  console.log("+++++++++++++++++++++++++");
+  console.log(req);
+  console.log(req.body);
+  models.Reservation.find({_id:req.body._id}).remove().exec(function(err){
+    if (err) throw err;
+  });
+}
+  // id = req.query.room_id;
+  // var r = function(name, start, end) {
+  //   return {
+  //     room: name,
+  //     start: start,
+  //     end: end
+  //   }
+  // }
+  // var month = 11;
+  // var day = 10;
+  // res.json([
+  //     r("AC 109", new Date(2013, month, day, 11, 13), new Date(2013, month, day, 11, 15)),
+  //     r("AC 109", new Date(2013, month, day, 11, 16), new Date(2013, month, day, 11, 18)),
+  //     r("AC 101", new Date(2013, month, day, 12, 13), new Date(2013, month, day, 12, 15)),
+  //     r("AC 101", new Date(2013, month, day, 12, 16), new Date(2013, month, day, 12, 18)),
+  //     r("AC 102", new Date(2013, month, day, 13, 13), new Date(2013, month, day, 13, 15)),
+  //     r("AC 102", new Date(2013, month, day, 13, 16), new Date(2013, month, day, 13, 18)),
+
+  //     r("CC 109", new Date(2013, month, day, 11, 13), new Date(2013, month, day, 11, 15)),
+  //     r("CC 109", new Date(2013, month, day, 11, 16), new Date(2013, month, day, 11, 18)),
+  //     r("CC 101", new Date(2013, month, day, 12, 13), new Date(2013, month, day, 12, 15)),
+  //     r("CC 101", new Date(2013, month, day, 12, 16), new Date(2013, month, day, 12, 18)),
+  //     r("CC 102", new Date(2013, month, day, 13, 13), new Date(2013, month, day, 13, 15)),
+  //     r("CC 102", new Date(2013, month, day, 13, 16), new Date(2013, month, day, 13, 18)),
+
+  //     r("MH 109", new Date(2013, month, day, 11, 13), new Date(2013, month, day, 11, 15)),
+  //     r("MH 109", new Date(2013, month, day, 11, 16), new Date(2013, month, day, 11, 18)),
+  //     r("MH 101", new Date(2013, month, day, 12, 13), new Date(2013, month, day, 12, 15)),
+  //     r("MH 101", new Date(2013, month, day, 12, 16), new Date(2013, month, day, 12, 18)),
+  //     r("MH 102", new Date(2013, month, day, 13, 13), new Date(2013, month, day, 13, 15)),
+  //     r("MH 102", new Date(2013, month, day, 13, 16), new Date(2013, month, day, 13, 18)),
+  //   ]);

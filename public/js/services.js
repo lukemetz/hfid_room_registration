@@ -86,7 +86,9 @@ angular.module('myApp.services', [])
     }
     return UserFactory;
   })
-  .factory("ReservationFactory", ["$http", function($http) {
+
+
+  .factory("ReservationsFactory", ["$http", function($http) {
     var ReservationsFactory = {};
     ReservationsFactory.getReservations = function() {
       if (ReservationsFactory.reservations !== undefined) {
@@ -101,6 +103,30 @@ angular.module('myApp.services', [])
       });
       ReservationsFactory.reservations = reservations;
       return reservations;
+    }
+
+    ReservationsFactory.addReservation = function(reservation) {
+      var reservations = []
+      $http({method:"POST", url: "/api/add_reservations"})
+      .success(function(data, status, headers, config) {
+        angular.forEach(data, function(reservation) {
+          reservations.push(reservation);
+        })
+      });
+      ReservationsFactory.reservations = reservations;
+    }
+
+    ReservationsFactory.deleteRes = function(to_delete) {
+      console.log("GOT HERE!!");
+      console.log(to_delete);
+      var reservations = []
+      $http({method:"POST", url: "/api/DeleteReservations", data:to_delete})
+      .success(function(data, status, headers, config) {
+        angular.forEach(data, function(reservation) {
+          reservations.push(reservation);
+        })
+      });
+      ReservationsFactory.reservations = reservations;
     }
     return ReservationsFactory;
   }])

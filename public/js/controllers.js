@@ -2,22 +2,26 @@
 
 /* Controllers */
 
+//Yes I know this is very bad.
+var rooms = ["AC 106","AC 107","AC 108","AC 109","CC 100","CC 101","CC 102","CC 103",
+"CC 104","CC 105","CC 106","CC 107","CC 108","CC 109", "MH 100", "MH 101",
+"MH 102", "MH 103", "MH 104", "MH 105", "MH 106", "MH 107", "MH 108",
+"MH 109", "AC 100", "AC 101", "AC 102", "AC 103", "AC 104", "AC 105" ]
+
 angular.module("myApp.controllers", ['ui.calendar', 'siyfion.sfTypeahead']).
 controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFactory, $http) {
   $scope.name = UserFactory.name;
 }])
-.controller("HomeController", ["$scope", "UserFactory", "RoomsFactory", function($scope, UserFactory, RoomsFactory) {
-  //Yes I know this is very bad.
-  var rooms = ["AC 106","AC 107","AC 108","AC 109","CC 100","CC 101","CC 102","CC 103",
-  "CC 104","CC 105","CC 106","CC 107","CC 108","CC 109", "MH 100", "MH 101",
-  "MH 102", "MH 103", "MH 104", "MH 105", "MH 106", "MH 107", "MH 108",
-  "MH 109", "AC 100", "AC 101", "AC 102", "AC 103", "AC 104", "AC 105" ]
+.controller("HomeController", ["$scope", "UserFactory", "ReservationsFactory", "RoomsFactory", function($scope, UserFactory, ReservationsFactory, RoomsFactory) {
   $scope.rooms = {name:"name",
     local:rooms};
-
   $('.ui-autocomplete').addClass('f-dropdown');
+  $scope.noFunction = function() {
+    alert("Sorry, the details page is not yet implemented");
+  }
   $scope.currentEvents = UserFactory.currentEvents;
-  $scope.reservations = UserFactory.reservations;
+  $scope.reservations = ReservationsFactory.getReservations();
+  console.log($scope.reservations);
   $scope.alertOpen = UserFactory.alertOpen;
     //UserFactory.alertOpen = false;
     $scope.closeAlert = function() {
@@ -25,8 +29,13 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     }
     $scope.cancel = function(index) {
       if (confirm("Are you sure")) { //Really, I used system popups....
+        var res_to_delete = $scope.reservations[index];
+        console.log(res_to_delete);
+        ReservationsFactory.deleteRes(res_to_delete);
         $scope.reservations.splice(index,1);
+        // ReservationsFactory.delete
       }
+      $scope.closeAlert();
     }
     function TypeaheadCtrl($scope) {
       $scope.selected = undefined;
@@ -34,11 +43,16 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     }
 
     $scope.forwardRoom = function() {
+      $scope.room = $("#roomName").val();
+      console.log($scope.room);
       UserFactory.selectedRoom = $scope.room
     }
   }])
 .controller("CalController", ["$scope", "$location", "UserFactory", "defaultFilter", "ConfirmFactory",
  function($scope, $location, UserFactory, defaultFilter, ConfirmFactory) {
+  $scope.rooms = {name:"name",
+    local:rooms};
+
   $scope.recurDays = [0, 0, 0, 0, 0, 0, 0]
   $scope.room = UserFactory.selectedRoom
   $scope.conflicted = false;
@@ -197,6 +211,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     }
   }
   $scope.submit = function() {
+    $scope.room = $("#room-input").val();
     ConfirmFactory.setCurrent({room:$scope.room, on:$scope.startTime.toLocaleDateString(), at:$scope.startTime.toLocaleTimeString()});
     if ($scope.recurring) {
       ConfirmFactory.recurringCurrent = [];
@@ -219,8 +234,8 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     $location.path('ConflictPage');
   }
 }])
-.controller("ConfirmController", ["$scope", "ConfirmFactory","$location", "UserFactory",
-  function($scope, ConfirmFactory, $location, UserFactory) {
+.controller("ConfirmController", ["$scope", "$window", "ConfirmFactory","$location", "UserFactory",
+  function($scope, $window, ConfirmFactory, $location, UserFactory) {
     $scope.reservations = ConfirmFactory.recurringCurrent;
     console.log($scope.reservations);
     angular.forEach($scope.reservations, function(res) {
@@ -240,7 +255,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     $scope.email = UserFactory.email;
 
     $scope.backButton = function() {
-      $location.path('/#/roomSelect');
+      window.history.back();
     }
 
     $scope.confirmButton = function() {
