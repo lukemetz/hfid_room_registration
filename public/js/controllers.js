@@ -100,7 +100,6 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     {title: 'HFID Meeting',start: new Date(2013, 10, 13, 12, 0), end: new Date(2013, 10, 13, 13, 30), allDay: false},
     {title: 'Class',start: new Date(2013, 10, 14, 9, 0), end: new Date(2013, 10, 14, 10, 30), allDay: false},
     ];}
-
     $scope.uiConfig = {
       calendar:{
         height: 450,
@@ -111,6 +110,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
         select: function(startDate, endDate, allDay, jsEvent, view) {
           $scope.startTime = startDate;
           $scope.endTime = endDate;
+          $("#date-input").datepicker("setDate",startDate)
           $scope.conflicted = false;
           for(var k = 0; k < $scope.overlay.length; k++){
             if($scope.overlay[k].start <= startDate && $scope.overlay[k].end >= startDate)
@@ -118,7 +118,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
             if($scope.overlay[k].start <= endDate && $scope.overlay[k].end >= endDate)
               $scope.conflicted = true;
           }
-          $scope.$apply()
+          $scope.apply()
         },
         defaultView: "agendaWeek",
         header:{
