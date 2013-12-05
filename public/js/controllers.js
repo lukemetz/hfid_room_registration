@@ -283,7 +283,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
       console.log($scope.date)
       console.log($scope.start)
       if (roomName == "" || $scope.date == undefined || $scope.start == undefined || $scope.durration == undefined) {
-        alert("Please date, time, and durration are filled in");
+        alert("Please ensure the date, time, and durration fields are filled in");
         return;
       }
 
