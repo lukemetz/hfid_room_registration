@@ -234,8 +234,8 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     $location.path('ConflictPage');
   }
 }])
-.controller("ConfirmController", ["$scope", "$window", "ConfirmFactory","$location", "UserFactory",
-  function($scope, $window, ConfirmFactory, $location, UserFactory) {
+.controller("ConfirmController", ["$scope", "$window", "ConfirmFactory","$location", "UserFactory", "ReservationsFactory",
+  function($scope, $window, ConfirmFactory, $location, UserFactory, ReservationsFactory) {
     $scope.reservations = ConfirmFactory.recurringCurrent;
     console.log($scope.reservations);
     angular.forEach($scope.reservations, function(res) {
@@ -246,10 +246,6 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     });
     $scope.roomName = ConfirmFactory.getCurrent().room
     $scope.date = ConfirmFactory.getCurrent().on
-    if (typeof $scope.date === "object") {
-      var d = $scope.date;
-      $scope.date = d.getDate() + "/" +  d.getMonth() + "/" + d.getFullYear();
-    }
     $scope.time = ConfirmFactory.getCurrent().at
     $scope.name = UserFactory.name;
     $scope.email = UserFactory.email;
@@ -262,9 +258,29 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
       if ($scope.reservations) {
         var length = $scope.reservations.length;
         var date = "(" + $scope.reservations[0].date + " - " + $scope.reservations[length-1].date + ")";
-        UserFactory.addReservation({name:$scope.eventName, room: $scope.reservations[0].room, date: date, time: $scope.time});
+        console.log("=====================");
+        console.log(date);
+        ReservationsFactory.addReservation({
+                user: "Sam",
+                end: 4,
+                duration: 2,
+                approved: false,
+                name:$scope.eventName,
+                room: $scope.reservations[0].room,
+                date: new Date(2013, 12, 12, 11, 13),
+                time: $scope.time});
       } else {
-        UserFactory.addReservation({name:$scope.eventName, room:$scope.roomName, date: $scope.date, time: $scope.time});
+        console.log("=====================");
+        console.log(date);
+        ReservationsFactory.addReservation({
+                user: "Sam",
+                end: 4,
+                duration: 2,
+                approved: false,
+                name:$scope.eventName,
+                room: $scope.reservations[0].room,
+                date: new Date(2013, 12, 12, 11, 13),
+                time: $scope.time});
       }
       UserFactory.alertOpen = true;
       ConfirmFactory.recurringCurrent = 0;
