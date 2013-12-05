@@ -21,7 +21,6 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
   }
   $scope.currentEvents = UserFactory.currentEvents;
   $scope.reservations = ReservationsFactory.getReservations();
-  console.log($scope.reservations);
   $scope.alertOpen = UserFactory.alertOpen;
     //UserFactory.alertOpen = false;
     $scope.closeAlert = function() {
@@ -30,7 +29,6 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     $scope.cancel = function(index) {
       if (confirm("Are you sure")) { //Really, I used system popups....
         var res_to_delete = $scope.reservations[index];
-        console.log(res_to_delete);
         ReservationsFactory.deleteRes(res_to_delete);
         $scope.reservations.splice(index,1);
         // ReservationsFactory.delete
@@ -44,7 +42,6 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
 
     $scope.forwardRoom = function() {
       $scope.room = $("#roomName").val();
-      console.log($scope.room);
       UserFactory.selectedRoom = $scope.room
     }
   }])
@@ -237,7 +234,6 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
 .controller("ConfirmController", ["$scope", "$window", "ConfirmFactory","$location", "UserFactory", "ReservationsFactory",
   function($scope, $window, ConfirmFactory, $location, UserFactory, ReservationsFactory) {
     $scope.reservations = ConfirmFactory.recurringCurrent;
-    console.log($scope.reservations);
     angular.forEach($scope.reservations, function(res) {
       if (typeof $scope.date === "object") {
         var d = $scope.date;
@@ -245,7 +241,9 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
       }
     });
     $scope.roomName = ConfirmFactory.getCurrent().room
+    console.log("ROOM NAME: ", $scope.roomName);
     $scope.date = ConfirmFactory.getCurrent().on
+    console.log("DATE: ",$scope.date);
     $scope.time = ConfirmFactory.getCurrent().at
     $scope.name = UserFactory.name;
     $scope.email = UserFactory.email;
@@ -258,8 +256,6 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
       if ($scope.reservations) {
         var length = $scope.reservations.length;
         var date = "(" + $scope.reservations[0].date + " - " + $scope.reservations[length-1].date + ")";
-        console.log("=====================");
-        console.log(date);
         ReservationsFactory.addReservation({
                 user: "Sam",
                 end: 4,
@@ -271,16 +267,20 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
                 time: $scope.time});
       } else {
         console.log("=====================");
-        console.log(date);
-        ReservationsFactory.addReservation({
-                user: "Sam",
-                end: 4,
-                duration: 2,
-                approved: false,
-                name:$scope.eventName,
-                room: $scope.reservations[0].room,
-                date: new Date(2013, 12, 12, 11, 13),
-                time: $scope.time});
+        console.log($scope.date);
+        var start_time =($scope.date).setHours($scope.time);
+        console.log("START TIME: ", start_time);
+        var new_reservation = {
+                                user: "Sam",
+                                end: ($scope.date).setHours($scope.time+ $scope.duration),
+                                duration: 2,
+                                approved: false,
+                                name: $scope.eventName,
+                                room: $scope.roomName,
+                                start: ($scope.date).setHours($scope.time),
+                                time: $scope.time};
+        console.log("NEW RES: ", new_reservation);
+        ReservationsFactory.addReservation(new_reservation);
       }
       UserFactory.alertOpen = true;
       ConfirmFactory.recurringCurrent = 0;
@@ -303,7 +303,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
         return;
       }
 
-      ConfirmFactory.setCurrent({room:roomName, on:$scope.date, at:$scope.start});
+      ConfirmFactory.setCurrent({room:roomName, on:$scope.date, at:$scope.start, duration:$scope.durration});
       if ($scope.recurring) {
         ConfirmFactory.recurringCurrent = [{name: "Meeting for HFID",
         room: "AC 109",

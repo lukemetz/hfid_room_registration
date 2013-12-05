@@ -27,10 +27,10 @@ exports.rooms_list = function(req, res) {
 
 exports.add_reservations = function(req, res) {
 
-  var newRes = new models.Reservation({user: "Sam",
-                            name: "HFID Meeting",
-                            room: "AC 109",
-                            date: new Date(2013, 12, 12, 11, 13),
+  var newRes = new models.Reservation({
+                            name: req.body.name,
+                            room: req.body.room,
+                            date: req.body.start,
                             time: 2,
                             end: 4,
                             duration: 2,

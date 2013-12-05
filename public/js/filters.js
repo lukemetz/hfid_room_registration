@@ -66,7 +66,6 @@ angular.module('myApp.filters', []).
         } */
 
         //This is like filtering by avalible time, right???
-        console.log(reservation);
         if (reservation.start && reservation.durration && reservation.date) {
           if (index % 3 !== 0) {
             shouldAdd = false;

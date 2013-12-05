@@ -59,9 +59,10 @@ angular.module('myApp.services', [])
   })
   .factory("ConfirmFactory", function() {
     var ConfirmFactory = {};
-    ConfirmFactory.current = {room:"", at:"", on:""};
+    ConfirmFactory.current = {room:"", at:"", on:"",duration:""};
     ConfirmFactory.setCurrent = function(current) {
       ConfirmFactory.current = current;
+      console.log(ConfirmFactory.current);
     }
     ConfirmFactory.getCurrent = function() {
       return ConfirmFactory.current;
