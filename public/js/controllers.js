@@ -295,6 +295,14 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     $scope.filter = defaultFilter;
     $scope.recurring = false;
     $scope.submit = function(roomName) {
+      console.log(roomName);
+      console.log($scope.date)
+      console.log($scope.start)
+      if (roomName == "" || $scope.date == undefined || $scope.start == undefined || $scope.durration == undefined) {
+        alert("Please ensure the date, time, and durration fields are filled in");
+        return;
+      }
+
       ConfirmFactory.setCurrent({room:roomName, on:$scope.date, at:$scope.start});
       if ($scope.recurring) {
         ConfirmFactory.recurringCurrent = [{name: "Meeting for HFID",
