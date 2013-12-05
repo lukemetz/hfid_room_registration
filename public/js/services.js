@@ -106,8 +106,10 @@ angular.module('myApp.services', [])
     }
 
     ReservationsFactory.addReservation = function(reservation) {
-      var reservations = []
-      $http({method:"POST", url: "/api/add_reservations"})
+      var reservations = [];
+      console.log("++++++++++++++++++");
+      console.log(reservation);
+      $http({method:"POST", url: "/api/add_reservations", data:reservation})
       .success(function(data, status, headers, config) {
         angular.forEach(data, function(reservation) {
           reservations.push(reservation);
@@ -117,8 +119,6 @@ angular.module('myApp.services', [])
     }
 
     ReservationsFactory.deleteRes = function(to_delete) {
-      console.log("GOT HERE!!");
-      console.log(to_delete);
       var reservations = []
       $http({method:"POST", url: "/api/DeleteReservations", data:to_delete})
       .success(function(data, status, headers, config) {

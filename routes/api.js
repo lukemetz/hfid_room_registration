@@ -26,9 +26,20 @@ exports.rooms_list = function(req, res) {
 };
 
 exports.add_reservations = function(req, res) {
-  //mongo
-  // return list ofreservations
-  //res.json(objects)
+
+  var newRes = new models.Reservation({user: "Sam",
+                            name: "HFID Meeting",
+                            room: "AC 109",
+                            date: new Date(2013, 12, 12, 11, 13),
+                            time: 2,
+                            end: 4,
+                            duration: 2,
+                            approved: false
+                            });
+    newRes.save(function(err){
+        if (err) return ("error saving Keely", err);
+        console.log('Keely saved');
+    });
 }
 
 exports.reservations = function(req, res) {
@@ -39,9 +50,6 @@ exports.reservations = function(req, res) {
 }
 
 exports.DeleteReservations = function(req, res) {
-  console.log("+++++++++++++++++++++++++");
-  console.log(req);
-  console.log(req.body);
   models.Reservation.find({_id:req.body._id}).remove().exec(function(err){
     if (err) throw err;
   });
