@@ -31,7 +31,7 @@ exports.add_reservations = function(req, res) {
                             name: req.body.name,
                             room: req.body.room,
                             date: req.body.start,
-                            time: 2,
+                            time: req.body.start,
                             end: 4,
                             duration: 2,
                             approved: false
