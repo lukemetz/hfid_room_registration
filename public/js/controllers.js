@@ -271,16 +271,9 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
                 date: new Date(2013, 12, 12, 11, 13),
                 time: $scope.time});
       } else {
-        console.log("+++++------------+++++++++");
-        console.log($scope.date);
         var start_day = ($scope.date).getDate();
-        console.log("START DAY: ", start_day);
         var start_month = ($scope.date).getMonth();
-        console.log("START Month: ", start_month);
-        console.log($scope.time);
-        console.log($scope.duration);
         var end_time = (parseInt($scope.time) + parseInt($scope.duration));
-        console.log(end_time);
         var new_reservation = {
                                 user: "Sam",
                                 name: $scope.eventName,
