@@ -30,15 +30,14 @@ exports.add_reservations = function(req, res) {
   var newRes = new models.Reservation({
                             name: req.body.name,
                             room: req.body.room,
-                            date: req.body.start,
-                            time: req.body.start,
-                            end: 4,
-                            duration: 2,
+                            start: req.body.start,
+                            end: req.body.end,
+                            duration: req.body.duration,
                             approved: false
                             });
     newRes.save(function(err){
-        if (err) return ("error saving Keely", err);
-        console.log('Keely saved');
+        if (err) return ("error saving New Reservation", err);
+        console.log('New Reservation saved');
     });
 }
 

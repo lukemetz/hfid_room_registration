@@ -30,9 +30,8 @@ var resSchema = new Schema({
                             user: String,
                             name: String,
                             room: String,
-                            date: Date,
-                            time: Number,
-                            end: Number,
+                            start: Date,
+                            end: Date,
                             duration: Number, //this is in hours aka 1hour = 1 and 2hours 30 min = 2.5
                             conflicted: Boolean,
                             approved: Boolean

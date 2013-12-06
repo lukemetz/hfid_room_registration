@@ -65,9 +65,8 @@ var reser = new models.Reservation({
                             user: "Sam",
                             name: "HFID Meeting",
                             room: "AC 109",
-                            date: new Date(2013, 12, 10, 11, 13),
-                            time: 10,
-                            end: 12,
+                            start: new Date(2013, 11, 10, 11),
+                            end: new Date(2013, 11, 10, 13),
                             duration: 2,
                             approved: true
                             });
@@ -79,9 +78,8 @@ var reser = new models.Reservation({
                             user: "Sam",
                             name: "HFID Meeting",
                             room: "AC 109",
-                            date: new Date(2013, 12, 12, 11, 13),
-                            time: 2,
-                            end: 4,
+                            start: new Date(2013, 11, 15, 10),
+                            end: new Date(2013, 11, 15, 12),
                             duration: 2,
                             approved: false
                             });

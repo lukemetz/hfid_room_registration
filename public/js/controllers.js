@@ -209,7 +209,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
   }
   $scope.submit = function() {
     $scope.room = $("#room-input").val();
-    ConfirmFactory.setCurrent({room:$scope.room, on:$scope.startTime.toLocaleDateString(), at:$scope.startTime.toLocaleTimeString()});
+    ConfirmFactory.setCurrent({room:$scope.room, on:$scope.startTime.toLocaleDateString(), at:$scope.startTime.toLocaleTimeString(), duration:$scope.duration});
     if ($scope.recurring) {
       ConfirmFactory.recurringCurrent = [];
       var date = new Date($scope.startDate.toString())
@@ -247,6 +247,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     $scope.time = ConfirmFactory.getCurrent().at
     $scope.name = UserFactory.name;
     $scope.email = UserFactory.email;
+    $scope.duration = ConfirmFactory.getCurrent().duration
 
     $scope.backButton = function() {
       window.history.back();
@@ -270,18 +271,24 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
                 date: new Date(2013, 12, 12, 11, 13),
                 time: $scope.time});
       } else {
-        console.log("=====================");
+        console.log("+++++------------+++++++++");
         console.log($scope.date);
-        var start_time =($scope.date).setHours($scope.time);
-        console.log("START TIME: ", start_time);
+        var start_day = ($scope.date).getDate();
+        console.log("START DAY: ", start_day);
+        var start_month = ($scope.date).getMonth();
+        console.log("START Month: ", start_month);
+        console.log($scope.time);
+        console.log($scope.duration);
+        var end_time = (parseInt($scope.time) + parseInt($scope.duration));
+        console.log(end_time);
         var new_reservation = {
                                 user: "Sam",
-                                end: ($scope.date).setHours($scope.time+ $scope.duration),
-                                duration: 2,
-                                approved: false,
                                 name: $scope.eventName,
                                 room: $scope.roomName,
-                                start: ($scope.date).setHours($scope.time),
+                                start: new Date(2013, start_month, start_day, $scope.time),
+                                end: new Date(2013, start_month, start_day, end_time),
+                                duration: 2,
+                                approved: false,
                                 time: $scope.time};
         console.log("NEW RES: ", new_reservation);
         ReservationsFactory.addReservation(new_reservation);
