@@ -92,9 +92,6 @@ angular.module('myApp.services', [])
   .factory("ReservationsFactory", ["$http", function($http) {
     var ReservationsFactory = {};
     ReservationsFactory.getReservations = function() {
-      if (ReservationsFactory.reservations !== undefined) {
-        return ReservationsFactory.reservations;
-      }
       var reservations = []
       $http({method:"GET", url: "/api/reservations"})
       .success(function(data, status, headers, config) {
