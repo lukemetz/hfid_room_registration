@@ -20,7 +20,9 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     alert("Sorry, the details page is not yet implemented");
   }
   $scope.currentEvents = UserFactory.currentEvents;
-  $scope.reservations = ReservationsFactory.getReservations();
+  setTimeout(function() {
+    $scope.reservations = ReservationsFactory.getReservations();
+  }, 100);
   $scope.alertOpen = UserFactory.alertOpen;
     //UserFactory.alertOpen = false;
     $scope.closeAlert = function() {
