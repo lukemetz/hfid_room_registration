@@ -39,7 +39,7 @@ var defaults = {
 	ignoreTimezone: true,
 	
 	// event ajax
-	lazyFetching: true,
+	lazyFetching: false,
 	startParam: 'start',
 	endParam: 'end',
 	
@@ -3941,13 +3941,13 @@ function AgendaEventRenderer() {
 				height = Math.max(0, seg.outerHeight - seg.vsides);
 				eventElement[0].style.height = height + 'px';
 				event = seg.event;
-				if (seg.contentTop !== undefined && height - seg.contentTop < 10) {
+				/*if (seg.contentTop !== undefined && height - seg.contentTop < 10) {
 					// not enough room for title, put it in the time (TODO: maybe make both display:inline instead)
 					eventElement.find('div.fc-event-time')
 						.text(formatDate(event.start, opt('timeFormat')) + ' - ' + event.title);
 					eventElement.find('div.fc-event-title')
 						.remove();
-				}
+				}*/
 				trigger('eventAfterRender', event, event, eventElement);
 			}
 		}
@@ -5356,7 +5356,7 @@ function DayEventRenderer() {
 				"<span class='fc-event-time'>" +
 				htmlEscape(
 					formatDates(event.start, event.end, opt('timeFormat'))
-				) +
+				)
 				"</span>";
 		}
 		html +=

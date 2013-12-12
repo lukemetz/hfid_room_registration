@@ -84,20 +84,23 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     }
   };
   $scope.events = [
-  {title: 'Meeting',start: new Date(y, m-1, d, 17, 0), end: new Date(y, m-1, 13,20,0), allDay: false},
-  {title: 'HFID Meeting',start: new Date(y, m, d, 12, 0), end: new Date(y, m, d, 14, 30), allDay: false},
-  {title: 'Class',start: new Date(y, m, d + 7, 10, 0), end: new Date(y, m, d + 7, 12, 30), allDay: false},
-  {title: 'Meeting',start: new Date(y, m, d + 1, 7, 0),end: new Date(y, m, d + 1, 10, 30),allDay: false},
+    {title: 'HFID Meeting',start: new Date(y, m, d, 12, 0), end: new Date(y, m, d, 13, 30), allDay: false},
+    {title: 'HFID Meeting',start: new Date(y, m, d+7, 11, 0), end: new Date(y, m, d+7, 12, 30), allDay: false},
+    {title: 'Class',start: new Date(y, m, d+7, 14, 30), end: new Date(y, m, 19, d+7, 0), allDay: false},
+    {title: 'Meeting',start: new Date(y, m, d+7, 11, 30),end: new Date(y, m, d+7, 14, 0),allDay: false},
+    {title: 'Meeting',start: new Date(y, m, d, 7, 0), end: new Date(y, m, d, 9, 0), allDay: false},
+    {title: 'HFID Meeting',start: new Date(y, m, d+1, 12, 0), end: new Date(y, m, d+1, 13, 30), allDay: false},
   ];
 
   if($scope.room == "AC109" || $scope.room == "AC 109" || $scope.room == "ac109" || $scope.room == "ac 109") {
     $scope.events = [
-    {title: 'HFID Meeting',start: new Date(2013, 10, 19, 12, 0), end: new Date(2013, 10, 19, 13, 30), allDay: false},
-    {title: 'Class',start: new Date(2013, 10, 19, 14, 30), end: new Date(2013, 10, 19, 16, 0), allDay: false},
-    {title: 'Meeting',start: new Date(2013, 10, 15, 11, 30),end: new Date(2013, 10, 15, 13, 0),allDay: false},
-    {title: 'Meeting',start: new Date(2013, 10, 12, 7, 0), end: new Date(2013, 10, 12, 10, 0), allDay: false},
-    {title: 'HFID Meeting',start: new Date(2013, 10, 13, 12, 0), end: new Date(2013, 10, 13, 13, 30), allDay: false},
-    {title: 'Class',start: new Date(2013, 10, 14, 9, 0), end: new Date(2013, 10, 14, 10, 30), allDay: false},
+    {title: 'HFID Meeting',start: new Date(y, m, d, 12, 0), end: new Date(y, m, d, 13, 30), allDay: false},
+    {title: 'HFID Meeting',start: new Date(y, m, d+7, 11, 0), end: new Date(y, m, d+7, 12, 30), allDay: false},
+    {title: 'Class',start: new Date(y, m, d+7, 14, 30), end: new Date(y, m, 19, d+7, 0), allDay: false},
+    {title: 'Meeting',start: new Date(y, m, d+7, 11, 30),end: new Date(y, m, d+7, 14, 0),allDay: false},
+    {title: 'Meeting',start: new Date(y, m, d, 7, 0), end: new Date(y, m, d, 9, 0), allDay: false},
+    {title: 'HFID Meeting',start: new Date(y, m, d+1, 12, 0), end: new Date(y, m, d+1, 13, 30), allDay: false},
+    {title: 'Class',start: new Date(y, m, d+1, 9, 0), end: new Date(y, m, d+1, 10, 30), allDay: false},
     ];}
     $scope.uiConfig = {
       calendar:{
@@ -186,11 +189,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
         }
       }
       for(var a=0; a<7; a++) {
-        dateSlices[a].sort((function(index){
-          return function(a, b){
-            return (a[index] === b[index] ? 0 : (a[index] < b[index] ? -1 : 1));
-          };
-        })(0))
+        dateSlices[a].sort()
         for(var b=0; b<dateSlices[a].length-1;b++){
           var ev = {conflictString: "0 conflicts", editable: false, start: new Date(3000,0,5+a,dateSlices[a][b][0], dateSlices[a][b][1]), end: new Date(3000,0,5+a,dateSlices[a][b+1][0], dateSlices[a][b+1][1]), allDay: false, conflicts: 0, backgroundColor: fillColors[0], borderColors: borderColors[0], textColor: '#000000'};
           for(var k=0; k<validEvents.length;k++) {
@@ -243,9 +242,7 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
       }
     });
     $scope.roomName = ConfirmFactory.getCurrent().room
-    console.log("ROOM NAME: ", $scope.roomName);
     $scope.date = ConfirmFactory.getCurrent().on
-    console.log("DATE: ",$scope.date);
     $scope.time = ConfirmFactory.getCurrent().at
     $scope.name = UserFactory.name;
     $scope.email = UserFactory.email;
@@ -285,7 +282,6 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
                                 duration: 2,
                                 approved: false,
                                 time: $scope.time};
-        console.log("NEW RES: ", new_reservation);
         ReservationsFactory.addReservation(new_reservation);
       }
       UserFactory.alertOpen = true;
@@ -301,9 +297,6 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
     $scope.filter = defaultFilter;
     $scope.recurring = false;
     $scope.submit = function(roomName) {
-      console.log(roomName);
-      console.log($scope.date)
-      console.log($scope.start)
       if (roomName == "" || $scope.date == undefined || $scope.start == undefined || $scope.durration == undefined) {
         alert("Please ensure the date, time, and durration fields are filled in");
         return;
