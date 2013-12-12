@@ -273,6 +273,15 @@ controller("AppCtrl", ["$scope", "UserFactory", "$http", function($scope, UserFa
                 date: new Date(2013, 12, 12, 11, 13),
                 time: $scope.time});
       } else {
+        console.log("DATE");
+        console.log($scope.date);
+        if (typeof($scope.date) === typeof("asdf")) {
+          var split = $scope.date.split('/');
+          console.log(split);
+          $scope.date = new Date(parseInt(split[2]), parseInt(split[1]), parseInt(split[0]));
+        }
+        console.log("New date");
+        console.log($scope.date);
         var start_day = ($scope.date).getDate();
         var start_month = ($scope.date).getMonth();
         var end_time = (parseInt($scope.time) + parseInt($scope.duration));
